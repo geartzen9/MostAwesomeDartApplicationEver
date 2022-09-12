@@ -11,6 +11,4 @@ jobs:
       - name: Restore Dependencies
         run: dotnet restore ./MostAwesomeDartApplicationEver/MostAwesomeDartApplicationEver.sln
       - name: Unit Tests
-        run: dotnet test --no-build --verbosity normal ./MostAwesomeDartApplicationEver/MostAwesomeDartApplicationEver.sln
-      - name: test
-        run: dotnet test -t -v=q ./MostAwesomeDartApplicationEver/MostAwesomeDartApplicationEver.sln
+        run: dotnet test --no-build --verbosity normal ./MostAwesomeDartApplicationEver/
