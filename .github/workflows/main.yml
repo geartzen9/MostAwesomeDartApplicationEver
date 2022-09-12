@@ -1,0 +1,11 @@
+name: Tests
+
+on: push
+
+jobs:
+  run-tests:
+    name: Unit testing
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: dotnet test
