@@ -8,6 +8,6 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
-      - run: dotnet test ./MostAwesomeDartApplicationEver/DartApplicationLibrary/DartApplicationLibrary.csproj ./MostAwesomeDartApplicationEver/MostAwesomeDartApplicationEver.sln
+      - run: dotnet test ./MostAwesomeDartApplicationEver/UnitTests/UnitTests.csproj ./MostAwesomeDartApplicationEver/MostAwesomeDartApplicationEver.sln
       
       
