@@ -7,5 +7,9 @@ jobs:
     name: Unit testing
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v2
-      - run: dotnet test ./MostAwesomeDartApplicationEver/UnitTests/UnitTests.csproj     
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: Restore Dependencies
+        run: dotnet restore
+      - name: Test
+        run: dotnet test ./MostAwesomeDartApplicationEver/MostAwesomeDartApplicationEver.sln
