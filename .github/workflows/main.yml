@@ -10,6 +10,6 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
       - name: Restore Dependencies
-        run: dotnet restore
+        run: dotnet restore ./MostAwesomeDartApplicationEver/MostAwesomeDartApplicationEver.sln
       - name: Test
-        run: dotnet test src/MostAwesomeDartApplicationEver/MostAwesomeDartApplicationEver.sln
+        run: dotnet test ./MostAwesomeDartApplicationEver/MostAwesomeDartApplicationEver.sln
