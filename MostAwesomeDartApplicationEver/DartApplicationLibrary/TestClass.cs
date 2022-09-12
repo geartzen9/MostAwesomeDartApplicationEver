@@ -10,7 +10,7 @@ namespace DartApplicationLibrary
     {
         public int TestFunction(int number)
         {
-            number++;
+            number += 2;
             return number;
         }
     }
