@@ -18,7 +18,7 @@ namespace DartApplicationLibrary
 
             int result = classTest.TestFunction(1);
 
-            Assert.AreEqual(1, result);
+            Assert.AreEqual(2, result);
         }
     }
 }
