@@ -12,4 +12,4 @@ jobs:
       - name: Restore Dependencies
         run: dotnet restore
       - name: Test
-        run: dotnet test ./MostAwesomeDartApplicationEver/MostAwesomeDartApplicationEver.sln
+        run: dotnet test src/MostAwesomeDartApplicationEver/MostAwesomeDartApplicationEver.sln
