@@ -17,4 +17,4 @@ jobs:
       - name: Build
         run: dotnet build --no-restore ./MostAwesomeDartApplicationEver/
       - name: Test
-        run: dotnet test --no-build --v=normal ./MostAwesomeDartApplicationEver/
+        run: dotnet test --no-build --vorbosity normal ./MostAwesomeDartApplicationEver/
