@@ -8,13 +8,26 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        
       - name: Setup .NET
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: '6.0.x'
+          
       - name: Restore Dependencies
         run: dotnet restore ./MostAwesomeDartApplicationEver/
+        
       - name: Build
         run: dotnet build --no-restore ./MostAwesomeDartApplicationEver/
+        
       - name: Test
         run: dotnet test --no-build --verbosity minimal ./MostAwesomeDartApplicationEver/
+
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: DotNET Tests
+          path: "**/test-results.trx"
+          reporter: dotnet-trx
+          fail-on-error: true
