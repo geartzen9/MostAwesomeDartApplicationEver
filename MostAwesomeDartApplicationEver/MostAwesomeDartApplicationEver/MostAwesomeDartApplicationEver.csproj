@@ -7,4 +7,12 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\Gerrit\Documents\C# projects\MostAwesomeDartApplicationEver\MostAwesomeDartApplicationEver\MostAwesomeDartApplicationEver\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\Gerrit\Documents\C# projects\MostAwesomeDartApplicationEver\MostAwesomeDartApplicationEver\MostAwesomeDartApplicationEver\.editorconfig" />
+  </ItemGroup>
+
 </Project>
