@@ -34,7 +34,7 @@ jobs:
 
   Linting:
     name: Run linter
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout
@@ -45,11 +45,8 @@ jobs:
         with:
           dotnet-version: "6.0.x"
 
-      - name: Restore Dependencies
-        run: dotnet restore ./MostAwesomeDartApplicationEver/
-
       - name: Run linters
         uses: wearerequired/lint-action@v2
         with:
           dotnet_format: true
-          dotnet_format_args: "./MostAwesomeDartApplicationEver/ --no-restore"
+          dotnet_format_args: "./MostAwesomeDartApplicationEver/"
