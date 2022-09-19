@@ -8,11 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <EditorConfigFiles Remove="C:\Users\Gerrit\Documents\C# projects\MostAwesomeDartApplicationEver\MostAwesomeDartApplicationEver\MostAwesomeDartApplicationEver\.editorconfig" />
+    <EditorConfigFiles Remove=".\.editorconfig" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="C:\Users\Gerrit\Documents\C# projects\MostAwesomeDartApplicationEver\MostAwesomeDartApplicationEver\MostAwesomeDartApplicationEver\.editorconfig" />
+    <None Include=".\.editorconfig" />
   </ItemGroup>
 
 </Project>
