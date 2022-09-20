@@ -21,7 +21,7 @@ jobs:
         run: dotnet build --no-restore ./MostAwesomeDartApplicationEver/
         
       - name: Test
-        run: dotnet test --no-build --verbosity minimal ./MostAwesomeDartApplicationEver/ --logger "trx;LogFileName=test-results.trx" || true
+        run: dotnet test --no-build --verbosity minimal ./MostAwesomeDartApplicationEver/DartApplicationLibraryTests/DartApplicationLibraryTests.csproj --logger "trx;LogFileName=test-results.trx" || true
 
       - name: Test Report
         uses: dorny/test-reporter@v1
