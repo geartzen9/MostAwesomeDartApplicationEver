@@ -16,7 +16,7 @@ namespace DartApplicationLibrary
         {
             DartApplicationLibrary.Class1 classTest = new DartApplicationLibrary.Class1();
 
-            int result = classTest.testFunction(1);
+            int result = classTest.TestFunction(1);
 
             Assert.AreEqual(2, result);
         }
