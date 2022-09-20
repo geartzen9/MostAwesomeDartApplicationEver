@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ModernWpfUI" Version="0.9.6" />
     <EditorConfigFiles Remove=".\.editorconfig" />
   </ItemGroup>
 
