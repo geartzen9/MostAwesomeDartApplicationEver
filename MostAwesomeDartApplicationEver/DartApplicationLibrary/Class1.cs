@@ -2,7 +2,7 @@
 {
     public class Class1
     {
-        public int TestFunction(int number)
+        public int testFunction(int number)
         {
             number++;
             return number;

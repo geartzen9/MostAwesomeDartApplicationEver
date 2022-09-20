@@ -1,9 +1,9 @@
-name: Tests
+name: Main
 
 on: push
 
 jobs:
-  build:
+  Testing:
     runs-on: windows-latest
     steps:
       - name: Checkout
@@ -31,3 +31,22 @@ jobs:
           path: "**/test-results.trx"
           reporter: dotnet-trx
           fail-on-error: true
+
+  Linting:
+    name: Run linter
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: "6.0.x"
+
+      - name: Run linters
+        uses: wearerequired/lint-action@v2
+        with:
+          dotnet_format: true
+          dotnet_format_args: "./MostAwesomeDartApplicationEver/"
