@@ -21,13 +21,13 @@ jobs:
         run: dotnet build --no-restore ./MostAwesomeDartApplicationEver/
         
       - name: Test
-        run: dotnet test --no-build --verbosity minimal ./MostAwesomeDartApplicationEver/DartApplicationLibraryTests/DartApplicationLibraryTests.csproj /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov --logger "trx;LogFileName=test-results.trx" || true
+        run: dotnet test --no-build --verbosity minimal ./MostAwesomeDartApplicationEver/DartApplicationLibraryTests/DartApplicationLibraryTests.csproj /p:CollectCoverage=true /p:CoverletOutput=TestCoverage/ /p:CoverletOutputFormat=lcov --logger "trx;LogFileName=test-results.trx" || true
 
       - name: Publish coverage report to coveralls.io
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }} 
-          path-to-lcov: ./MostAwesomeDartApplicationEver/DartApplicationLibraryTests/TestResults/coverage.info
+          path-to-lcov: ./MostAwesomeDartApplicationEver/DartApplicationLibraryTests/TestCoverage/coverage.info
 
       - name: Test Report
         uses: dorny/test-reporter@v1
