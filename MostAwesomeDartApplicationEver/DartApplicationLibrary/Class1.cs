@@ -7,5 +7,10 @@
             number++;
             return number;
         }
+
+        public string Hello()
+        {
+            return "Saying hello!";
+        }
     }
 }
