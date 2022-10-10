@@ -12,8 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Xaml.Behaviors;
 
-namespace MostAwesomeDartApplicationEver
+namespace DartScore
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -23,12 +24,6 @@ namespace MostAwesomeDartApplicationEver
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        public int Test(int number)
-        {
-            number++;
-            return number;
         }
     }
 }
