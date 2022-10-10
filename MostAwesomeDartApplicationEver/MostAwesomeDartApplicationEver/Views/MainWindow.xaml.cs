@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Xaml.Behaviors;
 
-namespace DartScore
+namespace MostAwesomeDartApplicationEver
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

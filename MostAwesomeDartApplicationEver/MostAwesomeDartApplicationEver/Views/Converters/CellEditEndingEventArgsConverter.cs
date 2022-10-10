@@ -1,4 +1,4 @@
-﻿using DartScore.Models;
+﻿using MostAwesomeDartApplicationEver.Models;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace DartScore.Views.Converters
+namespace MostAwesomeDartApplicationEver.Views.Converters
 {
     internal class CellEditEndingEventArgsConverter : IValueConverter
     {

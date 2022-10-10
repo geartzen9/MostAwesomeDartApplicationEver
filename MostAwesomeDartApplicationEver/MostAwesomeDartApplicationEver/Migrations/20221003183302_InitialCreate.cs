@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace DartScore.Migrations
+namespace MostAwesomeDartApplicationEver.Migrations
 {
     public partial class InitialCreate : Migration
     {

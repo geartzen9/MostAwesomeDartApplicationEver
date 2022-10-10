@@ -1,4 +1,4 @@
-﻿using DartScore.Models;
+﻿using MostAwesomeDartApplicationEver.Models;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -8,7 +8,7 @@ using System.Printing;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace DartScore
+namespace MostAwesomeDartApplicationEver
 {
     /// <summary>
     /// Interaction logic for App.xaml

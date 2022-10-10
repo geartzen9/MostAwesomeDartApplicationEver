@@ -7,11 +7,11 @@ using System.Windows.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-using DartScore.Models;
+using MostAwesomeDartApplicationEver.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace DartScore.ViewModels
+namespace MostAwesomeDartApplicationEver.ViewModels
 {   
     [INotifyPropertyChanged]
     internal partial class DarterViewModel : ViewModel<Darter>

@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using DartScore.Models;
+using MostAwesomeDartApplicationEver.Models;
 
-namespace DartScore.ViewModels
+namespace MostAwesomeDartApplicationEver.ViewModels
 {
     internal class ViewModel<T>
     {

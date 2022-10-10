@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace DartScore.Models
+namespace MostAwesomeDartApplicationEver.Models
 {
     internal class DartDBContext : DbContext
     {
