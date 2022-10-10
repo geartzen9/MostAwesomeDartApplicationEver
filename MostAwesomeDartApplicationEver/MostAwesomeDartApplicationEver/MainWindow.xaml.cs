@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DartApplicationLibrary;
 
 namespace MostAwesomeDartApplicationEver
 {
@@ -22,6 +23,8 @@ namespace MostAwesomeDartApplicationEver
     {
         public MainWindow()
         {
+            // TODO: Actually use this.
+            var instance = ServiceLocator.Instance;
             InitializeComponent();
         }
 

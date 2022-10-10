@@ -16,4 +16,8 @@
     <None Include=".\.editorconfig" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DartApplicationLibrary\DartApplicationLibrary.csproj" />
+  </ItemGroup>
+
 </Project>
