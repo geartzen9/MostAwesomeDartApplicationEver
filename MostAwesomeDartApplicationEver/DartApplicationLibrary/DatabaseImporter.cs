@@ -5,11 +5,13 @@ namespace DartApplicationLibrary
     /// <summary>
     /// Converter for data source to our database.
     ///
+    /// Note: This is a one-time use only class. Don't attempt to call its members more than once per instance.
+    ///
     /// TODO: Needs a CLI application to help importing
     /// </summary>
     public sealed class DatabaseImporter : IDisposable
     {
-        private readonly string _sourceFile;
+        private readonly Stream _sourceStream;
 
         /// <summary>
         /// Our database.
@@ -20,28 +22,26 @@ namespace DartApplicationLibrary
         /// Database containing imported definitions.
         /// </summary>
         private readonly Database _memoryDatabase;
-        
-        public DatabaseImporter(string sourceFile, Database? ourDatabase = null)
+
+        public DatabaseImporter(Stream stream, Database? ourDatabase = null)
         {
-            if (File.Exists(sourceFile))
-            {
-                throw new FileNotFoundException("Source file does not exist!");
-            }
-            
-            _sourceFile = sourceFile;
+            _sourceStream = stream;
 
             _ourDatabase = ourDatabase ?? Database.FromDefault();
-            _memoryDatabase = new Database(":memory:");
+            _memoryDatabase = Database.NewMemoryDatabase();
         }
-
-        public DatabaseImporter(string sourceFile, string ourDatabase) : this(sourceFile, new Database(ourDatabase)) {}
 
         public void Import()
         {
             using var command = _memoryDatabase.Connection.CreateCommand();
-            command.CommandText = ConvertSql(this._sourceFile);
-            command.Prepare();
-            command.ExecuteReader();
+            command.CommandText = ConvertSql();
+
+            using var reader = command.ExecuteReader();
+
+            do
+            {
+                reader.Read();
+            } while (reader.NextResult());
         }
 
         public void Export()
@@ -52,23 +52,54 @@ namespace DartApplicationLibrary
         /// <summary>
         /// Removes MySql-isms and makes SQL suitable for SQLite.
         /// </summary>
-        /// <param name="path"></param>
         /// <returns></returns>
-        private string ConvertSql(string path)
+        private string ConvertSql()
         {
-            string[] lines = File.ReadAllLines(path);
             StringBuilder sb = new();
+            using StreamReader reader = new(this._sourceStream);
+            string? line;
+            bool isAlterTable = false;
 
-            for (int i = 0; i < lines.Length; i++)
+            while ((line = reader.ReadLine()) != null)
             {
-                string line = lines[i];
-                if (line == ") ENGINE=InnoDB DEFAULT CHARSET=utf8;")
+                // https://www.sqlite.org/omitted.html; ALTER statements mostly don't work.
+                if (line.StartsWith("ALTER TABLE"))
                 {
-                    line = ");";
+                    isAlterTable = true;
+                    continue;
+                }
+                else if (isAlterTable)
+                {
+                    if (line.EndsWith(";"))
+                    {
+                        isAlterTable = false;
+                    }
+                    
+                    continue;
                 }
                 else if (line.StartsWith("SET ") || line.StartsWith("-- "))
                 {
                     continue;
+                }
+                if (line.StartsWith(") ENGINE"))
+                {
+                    line = ");";
+                }
+                else if (line.Contains("COMMENT '"))
+                {
+                    bool endsWithComma = line.EndsWith(",");
+                    
+                    line = line.Substring(0, line.IndexOf("COMMENT '", StringComparison.Ordinal));
+
+                    if (endsWithComma)
+                    {
+                        line += ',';
+                    }
+                }
+
+                if (line.Contains("\\'"))
+                {
+                    line = line.Replace("\\'", "''");
                 }
 
                 sb.AppendLine(line);
@@ -80,6 +111,7 @@ namespace DartApplicationLibrary
         public void Dispose()
         {
             _memoryDatabase.Dispose();
+            _sourceStream.Dispose();
         }
     }
 }

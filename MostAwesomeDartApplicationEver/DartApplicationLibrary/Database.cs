@@ -4,6 +4,8 @@ namespace DartApplicationLibrary
 {
     public sealed class Database : IDisposable
     {
+        public const string MemoryDatabasePath = ":memory:";
+        
         /// <summary>
         /// Direct connection to the database.
         /// </summary>
@@ -15,6 +17,7 @@ namespace DartApplicationLibrary
         {
             this.Location = path;
             Connection = new SqliteConnection($"Data Source={path}");
+            Connection.Open();
         }
 
         /// <inheritdoc />
@@ -27,6 +30,12 @@ namespace DartApplicationLibrary
         {
             string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "darts.sqlite");
             return new Database(path);
+        }
+
+
+        public static Database NewMemoryDatabase()
+        {
+            return new Database(MemoryDatabasePath);
         }
     }
 }

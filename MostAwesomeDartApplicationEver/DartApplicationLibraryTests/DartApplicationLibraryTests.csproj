@@ -22,4 +22,11 @@
     <ProjectReference Include="..\DartApplicationLibrary\DartApplicationLibrary.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Test resources\DartsData.sql" />
+    <EmbeddedResource Include="Test resources\DartsData.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>
