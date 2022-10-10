@@ -1,12 +1,11 @@
-﻿using MostAwesomeDartApplicationEver.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
-using System.Printing;
 using System.Threading.Tasks;
 using System.Windows;
+using MostAwesomeDartApplicationEver.Models;
 
 namespace MostAwesomeDartApplicationEver
 {

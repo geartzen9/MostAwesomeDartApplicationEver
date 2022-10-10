@@ -16,7 +16,7 @@ namespace MostAwesomeDartApplicationEver.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.9");
 
-            modelBuilder.Entity("DartScore.Models.Darter", b =>
+            modelBuilder.Entity("MostAwesomeDartApplicationEver.Models.Darter", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

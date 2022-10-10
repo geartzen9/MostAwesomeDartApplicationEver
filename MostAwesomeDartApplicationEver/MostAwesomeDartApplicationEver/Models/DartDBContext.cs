@@ -15,7 +15,7 @@ namespace MostAwesomeDartApplicationEver.Models
             DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite(
-                "Data Source=dartscore.db");
+                "Data Source=dartdata.db");
         }
     }
 }
