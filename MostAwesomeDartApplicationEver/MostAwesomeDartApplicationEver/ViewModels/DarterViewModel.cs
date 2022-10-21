@@ -18,12 +18,12 @@ namespace MostAwesomeDartApplicationEver.ViewModels
     {
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(DeleteDarterCommand))]
-        private Darter? selectedItem;
+        private Darter? _selectedItem;
 
-        public DarterViewModel(DartDBContext context) : base(context)
+        public DarterViewModel(DartDbContext context) : base(context)
         {
-            _context.Darters.Load();
-            Data = _context.Darters.Local.ToObservableCollection();
+            Context.Darters.Load();
+            Data = Context.Darters.Local.ToObservableCollection();
         }
         
         [RelayCommand]
@@ -31,21 +31,21 @@ namespace MostAwesomeDartApplicationEver.ViewModels
         {
             if (darter.Id is null)
             {
-                _context.Darters.Add(darter);
+                Context.Darters.Add(darter);
             }
             else
             {
-                _context.Darters.Update(darter);
+                Context.Darters.Update(darter);
             }
             
-            await _context.SaveChangesAsync();
+            await Context.SaveChangesAsync();
         }
 
         [RelayCommand(CanExecute = nameof(CanDeleteDarter))]
         private async Task DeleteDarterAsync(Darter darter)
         {
-            _context.Darters.Remove(darter);
-            await _context.SaveChangesAsync();
+            Context.Darters.Remove(darter);
+            await Context.SaveChangesAsync();
         }
 
         private bool CanDeleteDarter(Darter? darter)

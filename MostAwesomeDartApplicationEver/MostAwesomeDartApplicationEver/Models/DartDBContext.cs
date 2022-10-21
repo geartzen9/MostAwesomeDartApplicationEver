@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MostAwesomeDartApplicationEver.Models
 {
-    internal class DartDBContext : DbContext
+    internal class DartDbContext : DbContext
     {
         public DbSet<Darter> Darters { get; set; }
 

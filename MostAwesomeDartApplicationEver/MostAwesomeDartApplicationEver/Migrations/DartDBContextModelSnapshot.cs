@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MostAwesomeDartApplicationEver.Migrations
 {
-    [DbContext(typeof(DartDBContext))]
+    [DbContext(typeof(DartDbContext))]
     partial class DartDBContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
