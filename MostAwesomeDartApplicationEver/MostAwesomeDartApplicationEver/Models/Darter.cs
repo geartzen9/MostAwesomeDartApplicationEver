@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MostAwesomeDartApplicationEver.Models
 {
-    internal class Darter
+    public class Darter
     {
         public int? Id { get; set; }
         public string FirstName { get; set; }

@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Xaml.Behaviors;
+using MostAwesomeDartApplicationEver.Views;
 
 namespace MostAwesomeDartApplicationEver
 {
@@ -24,6 +25,9 @@ namespace MostAwesomeDartApplicationEver
         public MainWindow()
         {
             InitializeComponent();
+
+            // Load up start page.
+            NavigationFrame.Navigate(new Start());
         }
     }
 }

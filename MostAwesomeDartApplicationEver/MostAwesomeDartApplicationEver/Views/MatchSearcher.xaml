@@ -1,0 +1,12 @@
+﻿<Page x:Class="MostAwesomeDartApplicationEver.Views.MatchSearcher"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:MostAwesomeDartApplicationEver.Views"
+      mc:Ignorable="d"
+      Title="MatchSearcher" Height="450" Width="800">
+    <Grid VerticalAlignment="Center">
+        <Button Name="Test" HorizontalAlignment="Center" Content="Proceed (dummy)" Click="Test_OnClick"/>
+    </Grid>
+</Page>
