@@ -11,6 +11,8 @@ namespace MostAwesomeDartApplicationEver.Models
     {
         public DbSet<Darter> Darters { get; set; }
 
+        public DbSet<Match> Matches { get; set; }
+
         protected override void OnConfiguring(
             DbContextOptionsBuilder optionsBuilder)
         {
