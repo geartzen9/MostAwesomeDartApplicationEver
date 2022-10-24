@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MostAwesomeDartApplicationEver.Migrations
 {
-    [DbContext(typeof(DartDBContext))]
+    [DbContext(typeof(DartDbContext))]
     [Migration("20221003183302_InitialCreate")]
     partial class InitialCreate
     {

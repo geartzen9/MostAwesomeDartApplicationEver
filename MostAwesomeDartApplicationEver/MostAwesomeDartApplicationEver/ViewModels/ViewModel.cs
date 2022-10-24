@@ -13,12 +13,12 @@ namespace MostAwesomeDartApplicationEver.ViewModels
     internal class ViewModel<T>
     {
         public ObservableCollection<T> Data { get; protected set; }
-        protected readonly DartDBContext _context;
+        protected readonly DartDbContext Context;
 
-        public ViewModel(DartDBContext context)
+        public ViewModel(DartDbContext context)
         {
             Data = new ObservableCollection<T>();
-            _context = context;
+            Context = context;
         }
     }
 }

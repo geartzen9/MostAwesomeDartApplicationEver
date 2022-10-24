@@ -14,7 +14,7 @@ namespace MostAwesomeDartApplicationEver
     /// </summary>
     public partial class App : Application
     {
-        private DartDBContext _context;
+        private DartDbContext _context;
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -22,7 +22,7 @@ namespace MostAwesomeDartApplicationEver
 
             MainWindow mainWin = new MainWindow();
 
-            _context = new DartDBContext();
+            _context = new DartDbContext();
             _context.Database.EnsureCreated();
 
             ViewModels.DarterViewModel darterViewModel = new(_context);
