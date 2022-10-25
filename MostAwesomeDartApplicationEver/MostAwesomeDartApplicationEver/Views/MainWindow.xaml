@@ -6,6 +6,8 @@
         xmlns:local="clr-namespace:MostAwesomeDartApplicationEver"
         xmlns:c="clr-namespace:MostAwesomeDartApplicationEver.Views.Converters"
         xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        ui:WindowHelper.UseModernWindowStyle="True"
         mc:Ignorable="d"
         Title="MainWindow" Width="800" ResizeMode="NoResize" SizeToContent="Manual" Height="400">
     <Window.Resources>
