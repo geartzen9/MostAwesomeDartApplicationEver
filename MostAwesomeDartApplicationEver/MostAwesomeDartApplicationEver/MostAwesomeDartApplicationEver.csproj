@@ -23,12 +23,4 @@
     <None Include=".\.editorconfig" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Page Include=".\DesignTimeResources.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <ContainsDesignTimeResources>true</ContainsDesignTimeResources>
-    </Page>
-  </ItemGroup>
-
 </Project>
