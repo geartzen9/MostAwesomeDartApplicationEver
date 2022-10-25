@@ -5,27 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MostAwesomeDartApplicationEver"
         xmlns:c="clr-namespace:MostAwesomeDartApplicationEver.Views.Converters"
-        xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
-        mc:Ignorable="d"
+        xmlns:v="clr-namespace:MostAwesomeDartApplicationEver.Views"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        ui:WindowHelper.UseModernWindowStyle="True"
+    mc:Ignorable="d"
         Title="MainWindow" Width="800" ResizeMode="NoResize" SizeToContent="Manual" Height="400">
     <Window.Resources>
         <ResourceDictionary>
             <c:CellEditEndingEventArgsConverter x:Key="CellEditEndingEventArgsConverter"/>
         </ResourceDictionary>
     </Window.Resources>
-    <Grid>
-        <DataGrid Name="DataGrid1" ItemsSource="{Binding Data}" SelectedItem="{Binding SelectedItem}" Margin="0,0,0,69" AutoGenerateColumns="False" CanUserAddRows="True">
-            <behaviors:Interaction.Triggers>
-                <behaviors:EventTrigger EventName="CellEditEnding">
-                    <behaviors:InvokeCommandAction Command="{Binding AddUpdateDarterCommand}" PassEventArgsToCommand="True" EventArgsConverter="{StaticResource CellEditEndingEventArgsConverter}"/>
-                </behaviors:EventTrigger>
-            </behaviors:Interaction.Triggers>
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="First Name" Width="Auto" Binding="{Binding FirstName}"/>
-                <DataGridTextColumn Header="Last Name"  Width="Auto" Binding="{Binding LastName}" />
-            </DataGrid.Columns>
-        </DataGrid>
-        <Button Content="Delete" Command="{Binding DeleteDarterCommand}" CommandParameter="{Binding SelectedItem}" HorizontalAlignment="Center" Margin="0,332,0,0" VerticalAlignment="Top" IsDefault="True"/>
-        <Frame Name="NavigationFrame" NavigationUIVisibility="Hidden" />
-    </Grid>
+    <v:Start></v:Start>
 </Window>
