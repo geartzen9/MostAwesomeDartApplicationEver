@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using MostAwesomeDartApplicationEver.Models;
+using MostAwesomeDartApplicationEver.Views;
+
 
 namespace MostAwesomeDartApplicationEver
 {
@@ -27,6 +29,7 @@ namespace MostAwesomeDartApplicationEver
 
             ViewModels.DarterViewModel darterViewModel = new(_context);
             mainWin.DataContext = darterViewModel;
+            mainWin.NavigationFrame.Navigate(new Start());
             mainWin.Show();
         }
 

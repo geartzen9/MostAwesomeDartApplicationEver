@@ -15,5 +15,5 @@
             <c:CellEditEndingEventArgsConverter x:Key="CellEditEndingEventArgsConverter"/>
         </ResourceDictionary>
     </Window.Resources>
-    <v:Start></v:Start>
+    <Frame Name="NavigationFrame" NavigationUIVisibility="Hidden" />
 </Window>
