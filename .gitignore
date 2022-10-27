@@ -351,3 +351,6 @@ MigrationBackup/
 
 # JetBrains IDE's
 .idea/
+
+# EFCore dartsdata.db
+*.db
