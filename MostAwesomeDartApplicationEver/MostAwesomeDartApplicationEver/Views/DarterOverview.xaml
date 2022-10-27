@@ -22,6 +22,5 @@
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Delete" Command="{Binding DeleteDarterCommand}" CommandParameter="{Binding SelectedItem}" HorizontalAlignment="Center" Margin="0,332,0,0" VerticalAlignment="Top" IsDefault="True"/>
-        <Frame Name="NavigationFrame" NavigationUIVisibility="Hidden" />
     </Grid>
 </Page>
