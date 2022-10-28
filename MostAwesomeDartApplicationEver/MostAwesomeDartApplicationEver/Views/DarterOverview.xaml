@@ -10,7 +10,9 @@
       Title="DarterOverview">
 
     <Grid>
-        <DataGrid Name="DataGrid1" ItemsSource="{Binding Data}" SelectedItem="{Binding SelectedItem}" Margin="0,0,0,69" AutoGenerateColumns="False" CanUserAddRows="True">
+        <DataGrid Height="148" HorizontalAlignment="Left" Margin="12,21,0,0" Name="dataGrid1" VerticalAlignment="Top" Width="225" />
+        
+        <!--<DataGrid Name="DataGrid1" ItemsSource="{Binding Data}" SelectedItem="{Binding SelectedItem}" Margin="0,0,0,69" AutoGenerateColumns="False" CanUserAddRows="True">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="CellEditEnding">
                     <behaviors:InvokeCommandAction Command="{Binding AddUpdateDarterCommand}" PassEventArgsToCommand="True" EventArgsConverter="{StaticResource CellEditEndingEventArgsConverter}"/>
@@ -20,7 +22,7 @@
                 <DataGridTextColumn Header="First Name" Width="Auto" Binding="{Binding FirstName}"/>
                 <DataGridTextColumn Header="Last Name"  Width="Auto" Binding="{Binding LastName}" />
             </DataGrid.Columns>
-        </DataGrid>
+        </DataGrid>-->
         <Button Content="Delete" Command="{Binding DeleteDarterCommand}" CommandParameter="{Binding SelectedItem}" HorizontalAlignment="Center" Margin="0,332,0,0" VerticalAlignment="Top" IsDefault="True"/>
     </Grid>
 </Page>

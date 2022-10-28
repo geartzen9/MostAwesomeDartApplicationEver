@@ -17,6 +17,8 @@ namespace MostAwesomeDartApplicationEver.Views
 
         private void SearchMatch_OnClick(object sender, RoutedEventArgs e) => NavigationService!.Navigate(new Uri("Views/MatchSearcher.xaml", UriKind.Relative));
 
+        private void DarterOverview_OnClick(object sender, RoutedEventArgs e) => NavigationService!.Navigate(new Uri("Views/DarterOverview.xaml", UriKind.Relative));
+
         private void Export_OnClick(object sender, RoutedEventArgs e)
         {
             string myDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);

@@ -11,9 +11,11 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Button Name="LaunchMatch" HorizontalAlignment="Center" Grid.Row="0" Content="Nieuwe wedstrijd starten" Click="LaunchMatch_OnClick"/>
         <Button Name="SearchMatch" HorizontalAlignment="Center" Grid.Row="1" Content="Bestaande wedstrijd zoeken" Click="SearchMatch_OnClick"/>
-        <Button Name="Export" HorizontalAlignment="Center" Grid.Row="2" Content="Wedstrijden exporteren" Click="Export_OnClick"/>
+        <Button Name="DarterOverview" HorizontalAlignment="Center" Grid.Row="2" Content="Darters overzicht" Click="DarterOverview_OnClick"/>
+        <Button Name="Export" HorizontalAlignment="Center" Grid.Row="3" Content="Wedstrijden exporteren" Click="Export_OnClick"/>
     </Grid>
 </Page>
