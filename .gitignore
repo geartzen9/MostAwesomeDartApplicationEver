@@ -352,5 +352,7 @@ MigrationBackup/
 # JetBrains IDE's
 .idea/
 
-# EFCore dartsdata.db
-*.db
+#SQLite DB Files
+**/*.db
+**/*.db-shm
+**/*.db-wal
