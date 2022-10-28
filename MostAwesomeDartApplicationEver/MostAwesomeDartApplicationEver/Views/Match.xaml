@@ -3,14 +3,30 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:vm="clr-namespace:MostAwesomeDartApplicationEver.ViewModels"
+      xmlns:vm="clr-namespace:MostAwesomeDartApplicationEver.ViewModels" 
       xmlns:local="clr-namespace:MostAwesomeDartApplicationEver.Views"
       mc:Ignorable="d"
       Title="Match" Height="450" Width="800">
     <Page.DataContext>
         <vm:MatchViewModel />
     </Page.DataContext>
-    <Grid VerticalAlignment="Center">
-        <Button Name="Test" HorizontalAlignment="Center" Content="Proceed (dummy)" Command="{Binding NavigateToResultsCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+    <Grid VerticalAlignment="Center" Height="450">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="288*"/>
+            <ColumnDefinition Width="121*"/>
+            <ColumnDefinition Width="391*"/>
+        </Grid.ColumnDefinitions>
+        <Button Name="Test" Content="Proceed (dummy)" Click="Test_OnClick" Margin="60,225,0,0" Grid.Column="1" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Label x:Name="Player1" Content="{Binding Player1Text}" HorizontalAlignment="Center" Margin="0,25,0,0" VerticalAlignment="Top" Foreground="White" Width="224"/>
+            <Label x:Name="Player2" Content="{Binding Player2Text}" HorizontalAlignment="Left" Margin="128,25,0,0" VerticalAlignment="Top" Foreground="White" Width="208" Grid.Column="2"/>
+        <TextBox Name="TextBox1" Grid.Column="1"  HorizontalAlignment="Left" Height="40" Margin="32,127,0,0" TextWrapping="Wrap" Text="{Binding SearchText, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="160" Grid.ColumnSpan="2" TextChanged="TextBox_TextChanged">
+            <TextBox.InputBindings>
+                <KeyBinding Key="Return" 
+                    Command="{Binding EnterKeyCommand}"
+                   />
+            </TextBox.InputBindings>
+        </TextBox>
+        <ListBox Name="ListBox1" ItemsSource="{Binding Speler1Items}" Margin="32,76,32,52"/>
+        <ListBox Name="ListBox2"  ItemsSource="{Binding Speler2Items}"  Margin="112,76,55,52" Grid.Column="2"/>
     </Grid>
 </Page>

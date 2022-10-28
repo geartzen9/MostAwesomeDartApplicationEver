@@ -1,13 +1,25 @@
-﻿using System.Windows;
+﻿using MostAwesomeDartApplicationEver.ViewModels;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace MostAwesomeDartApplicationEver.Views
 {
     public partial class Match : Page
     {
-        public Match()
+        private MatchViewModel ViewModel => (MatchViewModel)this.DataContext;
+        public Match(string player1Name, string player2Name)
         {
             InitializeComponent();
+            ViewModel.Player1Text = player1Name;
+            ViewModel.Player2Text = player2Name;
         }
+
+        private void Test_OnClick(object sender, RoutedEventArgs e) => NavigationService!.Navigate(Results.NewForFinishedMatch());
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+       
     }
 }
