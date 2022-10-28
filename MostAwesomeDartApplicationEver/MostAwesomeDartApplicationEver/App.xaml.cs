@@ -17,18 +17,22 @@ namespace MostAwesomeDartApplicationEver
     {
         private DartDbContext _context;
 
+        /// <summary>
+        /// Awful hack to avoid requiring DI and similar mess.
+        /// </summary>
+        internal static DartDbContext? Context { get; private set; }
+
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
             MainWindow mainWin = new MainWindow();
 
-            _context = new DartDbContext();
+            Context = _context = new DartDbContext();
             _context.Database.EnsureCreated();
 
             ViewModels.DarterViewModel darterViewModel = new(_context);
             mainWin.DataContext = darterViewModel;
-            mainWin.NavigationFrame.Navigate(new Start());
             mainWin.Show();
         }
 
@@ -36,6 +40,7 @@ namespace MostAwesomeDartApplicationEver
         {
             base.OnExit(e);
             _context.Dispose();
+            Context = null;
         }
     }
 }
