@@ -14,26 +14,15 @@ namespace MostAwesomeDartApplicationEver
     /// </summary>
     public partial class App : Application
     {
-        private DartDbContext _context;
-
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-
-            MainWindow mainWin = new MainWindow();
-
-            _context = new DartDbContext();
-            _context.Database.EnsureCreated();
-
-            ViewModels.DarterViewModel darterViewModel = new(_context);
-            mainWin.DataContext = darterViewModel;
-            mainWin.Show();
         }
 
         protected override void OnExit(ExitEventArgs e)
         {
+            DartDbContext.Context.Dispose();
             base.OnExit(e);
-            _context.Dispose();
         }
     }
 }

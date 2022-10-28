@@ -10,7 +10,5 @@ namespace MostAwesomeDartApplicationEver.Views
         {
             InitializeComponent();
         }
-
-        private void Launch_OnClick(object sender, RoutedEventArgs e) => NavigationService!.Navigate(new Uri("Views/Match.xaml", UriKind.Relative));
     }
 }
