@@ -3,13 +3,9 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:vm="clr-namespace:MostAwesomeDartApplicationEver.ViewModels"
       xmlns:local="clr-namespace:MostAwesomeDartApplicationEver.Views"
       mc:Ignorable="d"
       Title="MatchLauncher" Height="450" Width="800">
-    <Page.DataContext>
-        <vm:MatchLauncherViewModel />
-    </Page.DataContext>
     <Grid VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -24,6 +20,6 @@
         <TextBox Grid.Row="1" Grid.Column="0" Name="Player1Name" />
         <Label Grid.Row="0" Grid.Column="1" Content="Speler 2:" Target="{Binding ElementName=Player2Name}"/>
         <TextBox Grid.Row="1" Grid.Column="1" Name="Player2Name" />
-        <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Content="Start spel" Name="Launch" Command="{Binding NavigateToMatchCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+        <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Content="Start spel" Name="Launch" Click="Launch_OnClick"/>
     </Grid>
 </Page>
