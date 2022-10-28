@@ -4,16 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MostAwesomeDartApplicationEver"
-        xmlns:c="clr-namespace:MostAwesomeDartApplicationEver.Views.Converters"
         xmlns:v="clr-namespace:MostAwesomeDartApplicationEver.Views"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         ui:WindowHelper.UseModernWindowStyle="True"
     mc:Ignorable="d"
         Title="MainWindow" Width="800" ResizeMode="NoResize" SizeToContent="Manual" Height="400">
-    <Window.Resources>
-        <ResourceDictionary>
-            <c:CellEditEndingEventArgsConverter x:Key="CellEditEndingEventArgsConverter"/>
-        </ResourceDictionary>
-    </Window.Resources>
-    <Frame Name="NavigationFrame" NavigationUIVisibility="Hidden" />
+    <v:Start></v:Start>
 </Window>
