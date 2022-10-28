@@ -1,23 +1,19 @@
-﻿<Page x:Name="StartPage" x:Class="MostAwesomeDartApplicationEver.Views.Start"
+﻿<Page x:Class="MostAwesomeDartApplicationEver.Views.Start"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:vm="clr-namespace:MostAwesomeDartApplicationEver.ViewModels"
       xmlns:local="clr-namespace:MostAwesomeDartApplicationEver.Views"
       mc:Ignorable="d"
       Title="Start" Width="800" Height="400">
-    <Page.DataContext>
-        <vm:StartViewModel />
-    </Page.DataContext>
     <Grid VerticalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Button Name="LaunchMatch" HorizontalAlignment="Center" Grid.Row="0" Content="Nieuwe wedstrijd starten" Command="{ Binding NavigateToMatchLauncerCommand }" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
-        <Button Name="SearchMatch" HorizontalAlignment="Center" Grid.Row="1" Content="Bestaande wedstrijd zoeken" Command="{ Binding NavigateToMatchSearcherCommand }" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
-        <Button Name="Export" HorizontalAlignment="Center" Grid.Row="2" Content="Wedstrijden exporteren" Command="{Binding ExportCommand}"/>
+        <Button Name="LaunchMatch" HorizontalAlignment="Center" Grid.Row="0" Content="Nieuwe wedstrijd starten" Click="LaunchMatch_OnClick"/>
+        <Button Name="SearchMatch" HorizontalAlignment="Center" Grid.Row="1" Content="Bestaande wedstrijd zoeken" Click="SearchMatch_OnClick"/>
+        <Button Name="Export" HorizontalAlignment="Center" Grid.Row="2" Content="Wedstrijden exporteren" Click="Export_OnClick"/>
     </Grid>
 </Page>

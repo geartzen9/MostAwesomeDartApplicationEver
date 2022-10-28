@@ -351,8 +351,3 @@ MigrationBackup/
 
 # JetBrains IDE's
 .idea/
-
-#SQLite DB Files
-**/*.db
-**/*.db-shm
-**/*.db-wal
