@@ -4,13 +4,19 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MostAwesomeDartApplicationEver.Views.Converters"
-      xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:behaviors="http://schemas.microsoft.com/xaml/behaviors" xmlns:viewModels="clr-namespace:MostAwesomeDartApplicationEver.ViewModels"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="DarterOverview">
 
     <Grid>
-        <DataGrid Height="148" HorizontalAlignment="Left" Margin="12,21,0,0" Name="dataGrid1" VerticalAlignment="Top" Width="225" />
+        <DataGrid Name="DarterOverviewDataGrid" HorizontalAlignment="Left" Margin="12,21,0,69"  VerticalAlignment="Top" IsReadOnly="True" AutoGenerateColumns="False" MouseDoubleClick="DarterRow_MouseDoubleClick">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Width="Auto" Binding="{Binding ID}"/>
+                <DataGridTextColumn Header="Voornaam" Width="Auto" Binding="{Binding FirstName}"/>
+                <DataGridTextColumn Header="Achternaam"  Width="Auto" Binding="{Binding LastName}"/>
+            </DataGrid.Columns>
+        </DataGrid>
         
         <!--<DataGrid Name="DataGrid1" ItemsSource="{Binding Data}" SelectedItem="{Binding SelectedItem}" Margin="0,0,0,69" AutoGenerateColumns="False" CanUserAddRows="True">
             <behaviors:Interaction.Triggers>
