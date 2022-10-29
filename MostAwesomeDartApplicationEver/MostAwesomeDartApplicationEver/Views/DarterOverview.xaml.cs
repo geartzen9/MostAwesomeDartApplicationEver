@@ -15,8 +15,6 @@ namespace MostAwesomeDartApplicationEver.Views.Converters
     {
         private DarterViewModel ViewModel => (DarterViewModel)this.DataContext;
 
-        private Darter SelectedDarter { get; set; }
-
         public DarterOverview()
         {
             InitializeComponent();
@@ -30,11 +28,12 @@ namespace MostAwesomeDartApplicationEver.Views.Converters
 
         private void DarterRow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (SelectedDarter == null)
+            if (DarterOverviewDataGrid == null || DarterOverviewDataGrid.SelectedItem == null)
             {
                 return;
             }
 
+            Darter SelectedDarter = DarterOverviewDataGrid.SelectedItem as Darter ?? throw new ArgumentException("SelectedDarter should not be null...");
             NavigationService!.Navigate(new DarterDetails(SelectedDarter));
         }
     }
