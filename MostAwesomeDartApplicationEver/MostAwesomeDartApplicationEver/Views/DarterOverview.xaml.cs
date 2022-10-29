@@ -34,7 +34,7 @@ namespace MostAwesomeDartApplicationEver.Views.Converters
             }
 
             Darter SelectedDarter = DarterOverviewDataGrid.SelectedItem as Darter ?? throw new ArgumentException("SelectedDarter should not be null...");
-            NavigationService!.Navigate(new DarterDetails(SelectedDarter));
+            NavigationService!.Navigate(new DarterDetails(SelectedDarter, this));
         }
     }
 }

@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MostAwesomeDartApplicationEver.ViewModels;
+using MostAwesomeDartApplicationEver.Views.Converters;
 
 namespace MostAwesomeDartApplicationEver.Views
 {
@@ -21,9 +23,21 @@ namespace MostAwesomeDartApplicationEver.Views
     /// </summary>
     public partial class DarterDetails : Page
     {
-        public DarterDetails(Darter darter)
+        private readonly Darter _darter;
+        DarterOverview _backButtonTarget;
+        public DarterDetails(Darter darter, DarterOverview backButtonTarget)
         {
+            _darter = darter;
+            _backButtonTarget = backButtonTarget;
             InitializeComponent();
+            SetDarterData();
         }
+
+        private void SetDarterData()
+        {
+            DarterNameLabel.Content = _darter.FirstName + " " + _darter.LastName;
+        }
+
+        private void BackButton_OnClick(object sender, RoutedEventArgs e) => NavigationService!.Navigate(_backButtonTarget);
     }
 }
