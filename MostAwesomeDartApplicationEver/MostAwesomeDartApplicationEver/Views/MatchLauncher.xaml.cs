@@ -10,5 +10,10 @@ namespace MostAwesomeDartApplicationEver.Views
         {
             InitializeComponent();
         }
+
+        private void Player1Name_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

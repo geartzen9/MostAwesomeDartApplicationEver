@@ -14,12 +14,9 @@ namespace MostAwesomeDartApplicationEver.Views
             ViewModel.Player2Text = player2Name;
         }
 
-        private void Test_OnClick(object sender, RoutedEventArgs e) => NavigationService!.Navigate(Results.NewForFinishedMatch());
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void Test_Click(object sender, RoutedEventArgs e)
         {
 
         }
-       
     }
 }

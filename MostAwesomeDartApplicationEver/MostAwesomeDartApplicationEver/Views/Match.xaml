@@ -6,27 +6,24 @@
       xmlns:vm="clr-namespace:MostAwesomeDartApplicationEver.ViewModels" 
       xmlns:local="clr-namespace:MostAwesomeDartApplicationEver.Views"
       mc:Ignorable="d"
-      Title="Match" Height="450" Width="800">
+      Title="Match" WindowHeight="900" WindowWidth="1600">
     <Page.DataContext>
         <vm:MatchViewModel />
     </Page.DataContext>
-    <Grid VerticalAlignment="Center" Height="450">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="288*"/>
-            <ColumnDefinition Width="121*"/>
-            <ColumnDefinition Width="391*"/>
-        </Grid.ColumnDefinitions>
-        <Button Name="Test" Content="Proceed (dummy)" Click="Test_OnClick" Margin="60,225,0,0" Grid.Column="1" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-        <Label x:Name="Player1" Content="{Binding Player1Text}" HorizontalAlignment="Center" Margin="0,25,0,0" VerticalAlignment="Top" Foreground="White" Width="224"/>
-            <Label x:Name="Player2" Content="{Binding Player2Text}" HorizontalAlignment="Left" Margin="128,25,0,0" VerticalAlignment="Top" Foreground="White" Width="208" Grid.Column="2"/>
-        <TextBox Name="TextBox1" Grid.Column="1"  HorizontalAlignment="Left" Height="40" Margin="32,127,0,0" TextWrapping="Wrap" Text="{Binding SearchText, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="160" Grid.ColumnSpan="2" TextChanged="TextBox_TextChanged">
+    <Grid VerticalAlignment="Center" Height="900" Width="1600" >
+
+        <Button Name="Test" Content="Proceed" Command="{Binding NavigateToResultsCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Margin="0,649,0,0" VerticalAlignment="Top" Click="Test_Click" HorizontalAlignment="Center" Height="54" Width="168"/>
+        <Label x:Name="Player1" Content="{Binding Player1Text}" HorizontalAlignment="Left" Margin="158,75,0,0" VerticalAlignment="Top" Foreground="White" Width="224"/>
+        <Label x:Name="Player2" Content="{Binding Player2Text}" HorizontalAlignment="Left" Margin="1211,75,0,0" VerticalAlignment="Top" Foreground="White" Width="208"/>
+        <TextBox Name="TextBox1"  HorizontalAlignment="Left" Height="104" Margin="610,748,0,0" TextWrapping="Wrap" Text="{Binding SearchText, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="360">
             <TextBox.InputBindings>
                 <KeyBinding Key="Return" 
                     Command="{Binding EnterKeyCommand}"
                    />
             </TextBox.InputBindings>
         </TextBox>
-        <ListBox Name="ListBox1" ItemsSource="{Binding Speler1Items}" Margin="32,76,32,52"/>
-        <ListBox Name="ListBox2"  ItemsSource="{Binding Speler2Items}"  Margin="112,76,55,52" Grid.Column="2"/>
+        <ListBox Name="ListBox1" ItemsSource="{Binding Speler1Items}" Margin="1093,146,50,48"/>
+        <ListBox Name="ListBox2"  ItemsSource="{Binding Speler2Items}"  Margin="54,146,1071,48"/>
+        <Button Content="ENTER" Command="{Binding EnterKeyCommand}" Margin="975,748,0,0" VerticalAlignment="Top" Height="104" Width="75"/>
     </Grid>
 </Page>

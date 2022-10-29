@@ -19,7 +19,7 @@ namespace MostAwesomeDartApplicationEver.ViewModels
         [RelayCommand]
         private void NavigateToMatch(Window win)
         {
-            win.Content = new Match();
+            win.Content = new Match(_player1Name, _player2Name);
         }
 
         [ObservableProperty]

@@ -20,10 +20,10 @@
             <RowDefinition Height="3*"/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Content="Speler 1:" Target="{Binding ElementName=Player1Name}"/>
-        <TextBox Grid.Row="1" Grid.Column="0" Name="Player1Name" />
-        <Label Grid.Row="0" Grid.Column="1" Content="Speler 2:" Target="{Binding ElementName=Player2Name}"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Name="Player2Name" />
-        <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Content="Start spel" Name="Launch" Command="{Binding NavigateToMatchCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+        <Label Grid.Row="0" Grid.Column="0" Content="Speler 1:" Grid.ColumnSpan="2" Margin="28,-5,372,5"/>
+        <TextBox Grid.Column="0" Name="Player1Name" Text="{Binding Player1Name}" TextChanged="Player1Name_TextChanged" Margin="28,0,28,0" Grid.Row="1" />
+        <Label Grid.Row="0" Grid.Column="1" Content="Speler 2:" Margin="35,-5,-35,7"/>
+        <TextBox Grid.Row="1" Name="Player2Name" Text="{Binding Player2Name}" Margin="35,0,21,46" Grid.Column="1" Grid.RowSpan="2"/>
+        <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Content="Start spel" Name="Launch" Command="{Binding NavigateToMatchCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Margin="361,15,0,0" VerticalAlignment="Top" Width="90"/>
     </Grid>
 </Page>
