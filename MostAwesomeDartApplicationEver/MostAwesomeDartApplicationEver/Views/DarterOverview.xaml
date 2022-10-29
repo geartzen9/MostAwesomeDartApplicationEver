@@ -19,9 +19,13 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
         <Button Name="Back" Content="{Binding BackButtonText}" Grid.Row="0" HorizontalAlignment="Left" Click="Back_OnClick"/>
 
-        <DataGrid Name="DarterOverviewDataGrid" Grid.Row="1" SelectionMode="Extended" SelectionUnit="FullRow" HorizontalAlignment="Left" Margin="12,21,0,69" IsReadOnly="True" AutoGenerateColumns="False" MouseDoubleClick="DarterRow_MouseDoubleClick">
+        <DataGrid Name="DarterOverviewDataGrid" Grid.Row="1" Grid.Column="0" SelectionMode="Extended" SelectionUnit="FullRow" HorizontalAlignment="Stretch" IsReadOnly="True" AutoGenerateColumns="False" MouseDoubleClick="DarterRow_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Width="Auto" Binding="{Binding Id}"/>
                 <DataGridTextColumn Header="Voornaam" Width="Auto" Binding="{Binding FirstName}"/>
