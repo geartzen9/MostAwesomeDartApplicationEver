@@ -2,6 +2,7 @@
 using MostAwesomeDartApplicationEver.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -14,13 +15,12 @@ namespace MostAwesomeDartApplicationEver.Views.Converters
     {
         private DarterViewModel ViewModel => (DarterViewModel)this.DataContext;
 
-        public Darter SelectedDarter { get; private set; }
+        private Darter SelectedDarter { get; set; }
 
         public DarterOverview()
         {
             InitializeComponent();
 
-            // TODO: Delete in production
             List<Darter> darters = new List<Darter>();
             darters.Add(new Darter("Gerrit", "de Heij"));
             DarterOverviewDataGrid.ItemsSource = darters;
@@ -30,14 +30,12 @@ namespace MostAwesomeDartApplicationEver.Views.Converters
 
         private void DarterRow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (DarterOverviewDataGrid.SelectedItem == null)
+            if (SelectedDarter == null)
             {
                 return;
             }
 
-            SelectedDarter = DarterOverviewDataGrid.SelectedItem as Darter;
-            
-            // TODO: Navigate to the details screen.
+            NavigationService!.Navigate(new DarterDetails(SelectedDarter));
         }
     }
 }

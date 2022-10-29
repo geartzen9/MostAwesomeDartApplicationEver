@@ -10,13 +10,26 @@
       Title="DarterOverview">
 
     <Grid>
-        <DataGrid Name="DarterOverviewDataGrid" HorizontalAlignment="Left" Margin="12,21,0,69"  VerticalAlignment="Top" IsReadOnly="True" AutoGenerateColumns="False" MouseDoubleClick="DarterRow_MouseDoubleClick">
+        <DataGrid Name="DarterOverviewDataGrid" SelectedItem="{Binding SelectedDarter}" SelectionMode="Extended" SelectionUnit="FullRow" HorizontalAlignment="Left" Margin="12,21,0,69"  VerticalAlignment="Top" IsReadOnly="True" AutoGenerateColumns="False" MouseDoubleClick="DarterRow_MouseDoubleClick">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="IsSelected" Value="{Binding IsSelected}"/>
+                </Style>
+            </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Width="Auto" Binding="{Binding ID}"/>
                 <DataGridTextColumn Header="Voornaam" Width="Auto" Binding="{Binding FirstName}"/>
                 <DataGridTextColumn Header="Achternaam"  Width="Auto" Binding="{Binding LastName}"/>
             </DataGrid.Columns>
         </DataGrid>
+        
+        <!--<DataGrid Name="DarterOverviewDataGrid" SelectedItem="{Binding SelectedDarter}" SelectionMode="Extended" SelectionUnit="FullRow" HorizontalAlignment="Left" Margin="12,21,0,69"  VerticalAlignment="Top" IsReadOnly="True" AutoGenerateColumns="False" MouseDoubleClick="DarterRow_MouseDoubleClick">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Width="Auto" Binding="{Binding ID}"/>
+                <DataGridTextColumn Header="Voornaam" Width="Auto" Binding="{Binding FirstName}"/>
+                <DataGridTextColumn Header="Achternaam"  Width="Auto" Binding="{Binding LastName}"/>
+            </DataGrid.Columns>
+        </DataGrid>-->
         
         <!--<DataGrid Name="DataGrid1" ItemsSource="{Binding Data}" SelectedItem="{Binding SelectedItem}" Margin="0,0,0,69" AutoGenerateColumns="False" CanUserAddRows="True">
             <behaviors:Interaction.Triggers>
