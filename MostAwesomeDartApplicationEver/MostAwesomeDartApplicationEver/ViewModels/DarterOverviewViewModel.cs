@@ -10,17 +10,27 @@ using CommunityToolkit.Mvvm.Input;
 using MostAwesomeDartApplicationEver.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace MostAwesomeDartApplicationEver.ViewModels
 {   
     [INotifyPropertyChanged]
-    internal partial class DarterViewModel : ViewModel<Darter>
+    internal partial class DarterOverviewViewModel : ViewModel<Darter>
     {
+        private string _backButtonText = "This is a bug. 💣 (Unless viewed in the WPF preview)";
+
+        /// <summary>
+        /// Notifies that the <paramref name="propertyName"/> property was changed.
+        /// </summary>
+        /// <param name="propertyName">Name of the property. Omit to have the compiler provide this, pass <code>null</code> to refer to all.</param>
+        private void NotifyPropertyChanged([CallerMemberName] string? propertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName ?? ""));
+
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(DeleteDarterCommand))]
         private Darter? _selectedItem;
 
-        public DarterViewModel(DartDbContext context) : base(context)
+        public DarterOverviewViewModel()
         {
             Context.Darters.Load();
             Data = Context.Darters.Local.ToObservableCollection();
@@ -51,6 +61,16 @@ namespace MostAwesomeDartApplicationEver.ViewModels
         private bool CanDeleteDarter(Darter? darter)
         {
             return darter is not null;
+        }
+
+        public string BackButtonText
+        {
+            get => _backButtonText;
+            set
+            {
+                _backButtonText = value;
+                this.NotifyPropertyChanged();
+            }
         }
     }
 }

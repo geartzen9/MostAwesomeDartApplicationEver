@@ -15,10 +15,10 @@ namespace MostAwesomeDartApplicationEver.ViewModels
         public ObservableCollection<T> Data { get; protected set; }
         protected readonly DartDbContext Context;
 
-        public ViewModel(DartDbContext context)
+        public ViewModel()
         {
             Data = new ObservableCollection<T>();
-            Context = context;
+            Context = DartDbContext.Context;
         }
     }
 }

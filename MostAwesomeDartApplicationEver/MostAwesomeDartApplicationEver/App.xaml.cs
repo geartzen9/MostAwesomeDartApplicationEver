@@ -26,7 +26,7 @@ namespace MostAwesomeDartApplicationEver
             _context = new DartDbContext();
             _context.Database.EnsureCreated();
 
-            ViewModels.DarterViewModel darterViewModel = new(_context);
+            ViewModels.DarterOverviewViewModel darterViewModel = new();
             mainWin.DataContext = darterViewModel;
             mainWin.NavigationFrame.Navigate(new Start());
             mainWin.Show();

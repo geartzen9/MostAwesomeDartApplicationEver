@@ -1,8 +1,7 @@
 ﻿using MostAwesomeDartApplicationEver.Models;
 using MostAwesomeDartApplicationEver.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -13,18 +12,21 @@ namespace MostAwesomeDartApplicationEver.Views.Converters
     /// </summary>
     public partial class DarterOverview : Page
     {
-        private DarterViewModel ViewModel => (DarterViewModel)this.DataContext;
+        private DarterOverviewViewModel ViewModel => (DarterOverviewViewModel)this.DataContext;
 
-        public DarterOverview()
+        private readonly Uri _backButtonTarget;
+
+        public DarterOverview(string backButtonText, Uri backButtonTarget)
         {
+            _backButtonTarget = backButtonTarget;
+
             InitializeComponent();
 
-            List<Darter> darters = new List<Darter>();
-            darters.Add(new Darter("Gerrit", "de Heij"));
-            DarterOverviewDataGrid.ItemsSource = darters;
-
-            //DarterOverviewDataGrid.ItemsSource = ViewModel.Data;
+            ViewModel.BackButtonText = backButtonText;
+            DarterOverviewDataGrid.ItemsSource = ViewModel.Data;
         }
+
+        private void Back_OnClick(object sender, RoutedEventArgs e) => NavigationService!.Navigate(_backButtonTarget);
 
         private void DarterRow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {

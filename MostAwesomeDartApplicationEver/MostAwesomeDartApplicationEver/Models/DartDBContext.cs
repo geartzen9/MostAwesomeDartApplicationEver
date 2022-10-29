@@ -19,5 +19,19 @@ namespace MostAwesomeDartApplicationEver.Models
             optionsBuilder.UseSqlite(
                 "Data Source=dartdata.db");
         }
+
+        private static DartDbContext? _context;
+        public static DartDbContext Context
+        {
+            get
+            {
+                if (_context is null)
+                {
+                    _context = new DartDbContext();
+                    _context.Database.EnsureCreated();
+                }
+                return _context;
+            }
+        }
     }
 }

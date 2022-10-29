@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Win32;
+using MostAwesomeDartApplicationEver.Views.Converters;
 
 namespace MostAwesomeDartApplicationEver.Views
 {
@@ -17,7 +18,7 @@ namespace MostAwesomeDartApplicationEver.Views
 
         private void SearchMatch_OnClick(object sender, RoutedEventArgs e) => NavigationService!.Navigate(new Uri("Views/MatchSearcher.xaml", UriKind.Relative));
 
-        private void DarterOverview_OnClick(object sender, RoutedEventArgs e) => NavigationService!.Navigate(new Uri("Views/DarterOverview.xaml", UriKind.Relative));
+        private void DarterOverview_OnClick(object sender, RoutedEventArgs e) => NavigationService!.Navigate(new DarterOverview("Terug", new Uri("Views/Start.xaml", UriKind.Relative)));
 
         private void Export_OnClick(object sender, RoutedEventArgs e)
         {
