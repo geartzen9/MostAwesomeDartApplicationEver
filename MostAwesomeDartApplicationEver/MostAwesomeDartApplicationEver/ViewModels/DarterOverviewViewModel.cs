@@ -14,13 +14,13 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 namespace MostAwesomeDartApplicationEver.ViewModels
 {   
     [INotifyPropertyChanged]
-    internal partial class DarterViewModel : ViewModel<Darter>
+    internal partial class DarterOverviewViewModel : ViewModel<Darter>
     {
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(DeleteDarterCommand))]
         private Darter? _selectedItem;
 
-        public DarterViewModel(DartDbContext context) : base(context)
+        public DarterOverviewViewModel()
         {
             Context.Darters.Load();
             Data = Context.Darters.Local.ToObservableCollection();

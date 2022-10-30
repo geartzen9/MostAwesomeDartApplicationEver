@@ -9,7 +9,5 @@ namespace MostAwesomeDartApplicationEver.Views
         {
             InitializeComponent();
         }
-
-        private void Test_OnClick(object sender, RoutedEventArgs e) => NavigationService!.Navigate(Results.NewForSearchedMatch());
     }
 }
