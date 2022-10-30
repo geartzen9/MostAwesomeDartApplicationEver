@@ -34,15 +34,75 @@
             </TextBox.InputBindings>
         </TextBox>
         <Button Name="SubmitButton" Content="ENTER" Command="{Binding SubmitCommand}" Margin="972,789,0,0" VerticalAlignment="Top" Height="54" Width="75"/>
-        <DataGrid Name="DataGrid1" ItemsSource="{Binding Player1MatchScores}" AutoGenerateColumns="true" Margin="45,78,915,144">
-            <!--<DataGrid.Columns>
-                <DataGridTextColumn Header="Score" Binding="{Binding }" />
-            </DataGrid.Columns>-->
+        <DataGrid Name="DataGrid1" CanUserDeleteRows="False" AutoGenerateColumns="False" Margin="45,78,915,144">
+            <DataGrid.Resources>
+                <CollectionViewSource x:Key="GroupedP1Throws" Source="{Binding Player1Throws}">
+                    <CollectionViewSource.GroupDescriptions>
+                        <PropertyGroupDescription PropertyName="Round.Id" />
+                    </CollectionViewSource.GroupDescriptions>
+                </CollectionViewSource>
+            </DataGrid.Resources>
+            <DataGrid.ItemsSource>
+                <Binding Source="{StaticResource GroupedP1Throws}" />
+            </DataGrid.ItemsSource>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Score" Binding="{Binding Hit}" />
+            </DataGrid.Columns>
+            <DataGrid.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Name}" />
+                                            </StackPanel>
+                                            <ItemsPresenter />
+                                        </StackPanel>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+                </GroupStyle>
+            </DataGrid.GroupStyle>
         </DataGrid>
-        <DataGrid Name="DataGrid2" ItemsSource="{Binding Player2MatchScores}" AutoGenerateColumns="true" Margin="914,78,72,144">
-            <!--<DataGrid.Columns>
-                <DataGridTextColumn Header="Score" Binding="{Binding }" />
-            </DataGrid.Columns>-->
+        <DataGrid Name="DataGrid2" CanUserDeleteRows="False" AutoGenerateColumns="False" Margin="914,78,72,144">
+            <DataGrid.Resources>
+                <CollectionViewSource x:Key="GroupedP2Throws" Source="{Binding Player2Throws}">
+                    <CollectionViewSource.GroupDescriptions>
+                        <PropertyGroupDescription PropertyName="Round.Id" />
+                    </CollectionViewSource.GroupDescriptions>
+                </CollectionViewSource>
+            </DataGrid.Resources>
+            <DataGrid.ItemsSource>
+                <Binding Source="{StaticResource GroupedP2Throws}" />
+            </DataGrid.ItemsSource>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Score" Binding="{Binding Hit}" />
+            </DataGrid.Columns>
+            <DataGrid.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Name}" />
+                                            </StackPanel>
+                                            <ItemsPresenter />
+                                        </StackPanel>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+                </GroupStyle>
+            </DataGrid.GroupStyle>
         </DataGrid>
         <Label Content="{Binding Player1Text}" HorizontalAlignment="Left" Margin="45,40,0,0" VerticalAlignment="Top" Height="33" Width="191"/>
         <Label Content="{Binding Player2Text}" HorizontalAlignment="Left" Margin="859,31,0,0" VerticalAlignment="Top" Height="33" Width="191"/>

@@ -19,7 +19,7 @@ namespace MostAwesomeDartApplicationEver.Views
             ViewModel.Player1Text = player1Name;
             ViewModel.Player2Text = player2Name;
             ViewModel.PlayingText = "Currently Playing: " + player1Name;
-            ViewModel.Sets = sets;
+            ViewModel.NumberOfSets = sets;
             ViewModel.ScheduledDateTime = scheduledDateTime;
         }
 

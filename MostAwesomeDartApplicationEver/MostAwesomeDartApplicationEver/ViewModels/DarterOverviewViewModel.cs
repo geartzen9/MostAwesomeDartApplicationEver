@@ -10,15 +10,17 @@ using CommunityToolkit.Mvvm.Input;
 using MostAwesomeDartApplicationEver.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Collections.ObjectModel;
 
 namespace MostAwesomeDartApplicationEver.ViewModels
 {   
     [INotifyPropertyChanged]
-    internal partial class DarterOverviewViewModel : ViewModel<Darter>
+    internal partial class DarterOverviewViewModel : ViewModel
     {
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(DeleteDarterCommand))]
         private Darter? _selectedItem;
+        public ObservableCollection<Darter> Data { get; set; }
 
         public DarterOverviewViewModel()
         {
