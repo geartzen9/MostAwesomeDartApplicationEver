@@ -23,12 +23,12 @@
             </TextBox.InputBindings>
         </TextBox>
         <Button Name="SubmitButton" Content="ENTER" Command="{Binding EnterKeyCommand}" Margin="972,789,0,0" VerticalAlignment="Top" Height="54" Width="75" Click="SubmitButton_Click"/>
-        <DataGrid Name="DataGrid1" ItemsSource="{Binding Player1MatchScore}" AutoGenerateColumns="true" Margin="45,78,915,144">
+        <DataGrid Name="DataGrid1" ItemsSource="{Binding Player1MatchScores}" AutoGenerateColumns="true" Margin="45,78,915,144">
             <!--<DataGrid.Columns>
                 <DataGridTextColumn Header="Score" Binding="{Binding }" />
             </DataGrid.Columns>-->
         </DataGrid>
-        <DataGrid Name="DataGrid2" ItemsSource="{Binding Player2MatchScore}" AutoGenerateColumns="true" Margin="914,78,72,144">
+        <DataGrid Name="DataGrid2" ItemsSource="{Binding Player2MatchScores}" AutoGenerateColumns="true" Margin="914,78,72,144">
             <!--<DataGrid.Columns>
                 <DataGridTextColumn Header="Score" Binding="{Binding }" />
             </DataGrid.Columns>-->

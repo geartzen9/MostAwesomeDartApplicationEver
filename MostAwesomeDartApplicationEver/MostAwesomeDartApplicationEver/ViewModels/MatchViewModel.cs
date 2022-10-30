@@ -19,7 +19,7 @@ namespace MostAwesomeDartApplicationEver.ViewModels
     internal partial class MatchViewModel
     {
         private int dartNumber;
-        private bool p1p2;
+        private bool p1;
         private int submittedScore;
         private string submittedScoreType;
 
@@ -27,13 +27,20 @@ namespace MostAwesomeDartApplicationEver.ViewModels
         Round currentRound = new Round();
         Leg currentLeg = new Leg();
         Set currentSet = new Set();
-        Models.Match currentMatch = new Models.Match();
         Enum hitArea = new HitArea();
 
-        //[ObservableProperty]
+        private int player1RoundScore;
+        private int player1LegScore;
+        private int player1SetScore;
+    
+        private int player2RoundScore;
+        private int player2LegScore;
+        private int player2SetScore;
+       
+        [ObservableProperty]
         private string _searchText = "";
+        [ObservableProperty]
         private string _scoreType = "none";
-
         [ObservableProperty]
         private string _player1Text = "";
         [ObservableProperty]
@@ -44,39 +51,19 @@ namespace MostAwesomeDartApplicationEver.ViewModels
         private int _sets;
         [ObservableProperty]
         private DateTime _scheduledDateTime;
-        
-        
 
-        public ObservableCollection<SetScore> Player1MatchScore { get; set; } = new();
-        public ObservableCollection<SetScore> Player2MatchScore { get; set; } = new();
-        public ObservableCollection<LegScore> Player1SetScore { get; set; } = new();
-        public ObservableCollection<LegScore> Player2SetScore { get; set; } = new();
-        public ObservableCollection<RoundScore> Player1LegScore { get; set; } = new();
-        public ObservableCollection<RoundScore> Player2LegScore { get; set; } = new();
-        public ObservableCollection<Throw> Player1RoundScore { get; set; } = new();
-        public ObservableCollection<Throw> Player2RoundScore { get; set; } = new();
+        public ObservableCollection<MatchScore> Player1MatchScores { get; set; } = new();
+        public ObservableCollection<MatchScore> Player2MatchScores { get; set; } = new();
+        public ObservableCollection<SetScore> Player1SetScores { get; set; } = new();
+        public ObservableCollection<SetScore> Player2SetScores { get; set; } = new();
+        public ObservableCollection<LegScore> Player1LegScores { get; set; } = new();
+        public ObservableCollection<LegScore> Player2LegScores { get; set; } = new();
+        public ObservableCollection<RoundScore> Player1RoundScores { get; set; } = new();
+        public ObservableCollection<RoundScore> Player2RoundScores { get; set; } = new();
+        public ObservableCollection<Throw> Player1Throws { get; set; } = new();
+        public ObservableCollection<Throw> Player2Throws { get; set; } = new();
 
-        public string SearchText
-        {
-            get { return _searchText; }
-            set 
-            {
-                _searchText = value; 
-              
-                OnPropertyChanged(nameof(SearchText)); 
-            }
-        }
-        public string ScoreType
-        {
-            get { return _scoreType; }
-            set
-            {
-                _scoreType = value;
-
-                OnPropertyChanged(nameof(ScoreType));
-            }
-        }
-
+      
         [RelayCommand]
         private void NavigateToResults(Window win)
         {
@@ -95,39 +82,98 @@ namespace MostAwesomeDartApplicationEver.ViewModels
                 //round switch after 3 throws
                 if (dartNumber % 3 == 0)
                 {
-                    p1p2 = !p1p2;
+                    p1 = !p1;
                      currentRound = new Round();
+
+                    if (p1) 
+                    {
+                        CalculateRoundScore(1);
+                        Player1Throws.Clear();
+                    }
+
+                    else
+                    {
+                        CalculateRoundScore(2);
+                        Player2Throws.Clear();
+                    }
+                       
                 }
                 //player 1 turn
-                if (p1p2)
+                if (p1)
                 {
                     PlayingText = "Currently Playing: " + Player1Text;
-                    //currentThrow.Hit = (submittedScoreType, submittedScore);
-                    Player1RoundScore.Add(currentThrow);   
+                    Player1Throws.Add(currentThrow);   
                 }
                 //player 2 turn
                 else
                 {
                     PlayingText = "Currently Playing: " + Player2Text;
-                    //currentThrow.Hit = (submittedScoreType, submittedScore);
-                    Player2RoundScore.Add(currentThrow);   
+                    Player2Throws.Add(currentThrow);   
                 }
 
                 SearchText = string.Empty;
 
                 dartNumber++;
             } 
-
         }
-        private void CalculateWinner()
+        private void CalculateRoundScore(int player)
         {
-            foreach(Throw _throw in Player1RoundScore)
+            if (player == 1)
             {
-                
+                foreach (Throw _throw in Player1Throws)
+                {
+                    switch (_throw.Hit.Item1)
+                    {
+                        case HitArea.Single:
+                            player1RoundScore += _throw.Hit.Item2;
+                            break;
+                        case HitArea.Double:
+                            player1RoundScore += _throw.Hit.Item2 * 2;
+                            break;
+                        case HitArea.Triple:
+                            player1RoundScore += _throw.Hit.Item2 * 3;
+                            break;
+                        case HitArea.Bullseye:
+                            player1RoundScore += 50;
+                            break;
+                        case HitArea.None:
+                            player1RoundScore += 0;
+                            break;
+
+                    }
+                }
+                player1LegScore += player1RoundScore;
+                player1RoundScore = 0;
+
+            }
+            if (player == 2)
+            {
+                foreach (Throw _throw in Player2Throws)
+                {
+                    switch (_throw.Hit.Item1)
+                    {
+                        case HitArea.Single:
+                            player2RoundScore += _throw.Hit.Item2;
+                            break;
+                        case HitArea.Double:
+                            player2RoundScore += _throw.Hit.Item2 * 2;
+                            break;
+                        case HitArea.Triple:
+                            player2RoundScore += _throw.Hit.Item2 * 3;
+                            break;
+                        case HitArea.Bullseye:
+                            player2RoundScore += 50;
+                            break;
+                        case HitArea.None:
+                            player2RoundScore += 0;
+                            break;
+
+                    }
+                }
+                player2LegScore += player2RoundScore;
+                player2RoundScore = 0;
             }
         }
-
-
     }
 }
 
