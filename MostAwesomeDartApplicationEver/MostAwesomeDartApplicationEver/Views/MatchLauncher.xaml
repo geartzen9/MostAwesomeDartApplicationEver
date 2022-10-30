@@ -10,7 +10,7 @@
     <Page.DataContext>
         <vm:MatchLauncherViewModel />
     </Page.DataContext>
-    <Grid VerticalAlignment="Center">
+    <Grid VerticalAlignment="Center" Height="450" Width="800">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -20,10 +20,14 @@
             <RowDefinition Height="3*"/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Grid.Column="0" Content="Speler 1:" Grid.ColumnSpan="2" Margin="28,-5,372,5"/>
-        <TextBox Grid.Column="0" Name="Player1Name" Text="{Binding Player1Name}" TextChanged="Player1Name_TextChanged" Margin="28,0,28,0" Grid.Row="1" />
-        <Label Grid.Row="0" Grid.Column="1" Content="Speler 2:" Margin="35,-5,-35,7"/>
-        <TextBox Grid.Row="1" Name="Player2Name" Text="{Binding Player2Name}" Margin="35,0,21,46" Grid.Column="1" Grid.RowSpan="2"/>
+        <Label Grid.Row="0" Grid.Column="0" Content="Speler 1:" Margin="28,42,294,10"/>
+        <TextBox Grid.Column="0" Name="Player1Name" Text="{Binding Player1Name}" TextChanged="Player1Name_TextChanged" Margin="28,0,28,190" Grid.Row="1" />
+        <Label Grid.Row="0" Grid.Column="1" Content="Speler 2:" Margin="35,42,305,17"/>
+        <TextBox Grid.Row="1" Name="Player2Name" Text="{Binding Player2Name}" Margin="35,0,21,190" Grid.Column="1"/>
         <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Content="Start spel" Name="Launch" Command="{Binding NavigateToMatchCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Margin="361,15,0,0" VerticalAlignment="Top" Width="90"/>
+        <DatePicker Name="ScheduledDateTime" Text="{Binding ScheduledDateTime}" Margin="39,113,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+        <TextBox Grid.Column="1" x:Name="Sets" Text="{Binding Sets}"  Margin="44,113,283,78" Grid.Row="1" />
+        <Label Grid.Row="1" Grid.Column="0" Content="Date:" Margin="39,76,283,126"/>
+        <Label Grid.Row="1" Grid.Column="1" Content="Sets:" Margin="44,76,278,126"/>
     </Grid>
 </Page>

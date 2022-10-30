@@ -19,13 +19,16 @@ namespace MostAwesomeDartApplicationEver.ViewModels
         [RelayCommand]
         private void NavigateToMatch(Window win)
         {
-            win.Content = new Match(_player1Name, _player2Name);
+            win.Content = new Match(_player1Name, _player2Name, _sets, _scheduledDateTime);
         }
 
         [ObservableProperty]
         private string _player1Name = "";
-
         [ObservableProperty]
         private string _player2Name = "";
+        [ObservableProperty]
+        private int _sets = 0;
+        [ObservableProperty]
+        private DateTime _scheduledDateTime = DateTime.UtcNow;
     }
 }
