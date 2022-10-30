@@ -18,49 +18,11 @@ namespace MostAwesomeDartApplicationEver.Views
             InitializeComponent();
             ViewModel.Player1Text = player1Name;
             ViewModel.Player2Text = player2Name;
+            ViewModel.PlayingText = "Currently Playing: " + player1Name;
             ViewModel.Sets = sets;
             ViewModel.ScheduledDateTime = scheduledDateTime;
         }
 
-        private void Test_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void InputBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void OnKeyDownHandler(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.T)
-            {
-                ScoreTypeLabel.Content = "Triple";
-            }
-            else if(e.Key == Key.D)
-            {
-                ScoreTypeLabel.Content = "Double";
-            }
-            else if (e.Key == Key.B)
-            {
-                ScoreTypeLabel.Content = "Bullseye";
-                InputBox.Text = "50";
-            }
-            else if (e.Key == Key.N)
-            {
-                ScoreTypeLabel.Content = "None";
-            }
-            else if (e.Key == Key.S)
-            {
-                ScoreTypeLabel.Content = "Single";
-            }
-        }
-
-        private void SubmitButton_Click(object sender, RoutedEventArgs e)
-        {
-            //InputBox.Clear();
-        }
         private void InputBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");

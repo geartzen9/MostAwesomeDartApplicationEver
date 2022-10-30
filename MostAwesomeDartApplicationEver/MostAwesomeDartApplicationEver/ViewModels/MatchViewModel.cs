@@ -8,20 +8,20 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Printing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace MostAwesomeDartApplicationEver.ViewModels
 {
     [INotifyPropertyChanged]
     internal partial class MatchViewModel
     {
-        private int dartNumber;
+        private int dartNumber = 1;
         private bool p1;
-        private int submittedScore;
-        private string submittedScoreType;
 
         Throw currentThrow = new Throw();
         Round currentRound = new Round();
@@ -36,33 +36,34 @@ namespace MostAwesomeDartApplicationEver.ViewModels
         private int player2RoundScore;
         private int player2LegScore;
         private int player2SetScore;
-       
+
+
+
+        private HitArea _scoreType = HitArea.None;
+
         [ObservableProperty]
         private string _searchText = "";
         [ObservableProperty]
-        private string _scoreType = "none";
+        private string _scoreTypeString = "";
         [ObservableProperty]
         private string _player1Text = "";
         [ObservableProperty]
         private string _player2Text = "";
         [ObservableProperty]
-        private string _playingText = "Currently Playing: no one";
+        private string _playingText = "";
         [ObservableProperty]
         private int _sets;
         [ObservableProperty]
         private DateTime _scheduledDateTime;
 
-        public ObservableCollection<MatchScore> Player1MatchScores { get; set; } = new();
-        public ObservableCollection<MatchScore> Player2MatchScores { get; set; } = new();
-        public ObservableCollection<SetScore> Player1SetScores { get; set; } = new();
-        public ObservableCollection<SetScore> Player2SetScores { get; set; } = new();
-        public ObservableCollection<LegScore> Player1LegScores { get; set; } = new();
-        public ObservableCollection<LegScore> Player2LegScores { get; set; } = new();
-        public ObservableCollection<RoundScore> Player1RoundScores { get; set; } = new();
-        public ObservableCollection<RoundScore> Player2RoundScores { get; set; } = new();
         public ObservableCollection<Throw> Player1Throws { get; set; } = new();
         public ObservableCollection<Throw> Player2Throws { get; set; } = new();
 
+
+        private void PrepareMatch()
+        {
+            
+        }
       
         [RelayCommand]
         private void NavigateToResults(Window win)
@@ -71,13 +72,23 @@ namespace MostAwesomeDartApplicationEver.ViewModels
         }
 
         [RelayCommand]
-        private void EnterKey()
+        private void KeyDown(ValueTuple<bool, HitArea> input)
+        {
+            if (!input.Item1) return;
+
+            _scoreType = input.Item2;
+            ScoreTypeString = input.Item2.ToString();
+
+            if (_scoreType == HitArea.Bullseye) SearchText = "50";
+        }
+
+        [RelayCommand]
+        private void Submit()
         {
             if (_searchText != "")
             {
                 currentThrow = new Throw();
-                submittedScore = Int32.Parse(_searchText);
-                submittedScoreType = _scoreType;
+                currentThrow.Hit = (_scoreType, Int32.Parse(_searchText));
 
                 //round switch after 3 throws
                 if (dartNumber % 3 == 0)
@@ -112,6 +123,7 @@ namespace MostAwesomeDartApplicationEver.ViewModels
                 }
 
                 SearchText = string.Empty;
+                ScoreTypeString = "";
 
                 dartNumber++;
             } 

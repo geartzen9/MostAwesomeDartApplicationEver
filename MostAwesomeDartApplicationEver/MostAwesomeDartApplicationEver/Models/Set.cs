@@ -4,10 +4,10 @@ namespace MostAwesomeDartApplicationEver.Models
 {
     public class Set : MatchComponent 
     {
-        private Leg[] _legs;
-
-        private Match _match;
-        private SetScore _score;
-
+        public int? Id { get; set; }
+        public Match Match { get; set; }
+        public int Score { get; set; }
+        public int DartsThrown { get; set; }
+        public Darter Darter { get; set; }
     }
 }
