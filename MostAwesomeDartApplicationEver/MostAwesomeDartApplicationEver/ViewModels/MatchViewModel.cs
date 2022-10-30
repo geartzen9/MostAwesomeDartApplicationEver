@@ -29,14 +29,14 @@ namespace MostAwesomeDartApplicationEver.ViewModels
         Set currentSet = new Set();
         Enum hitArea = new HitArea();
 
-        private int player1RoundScore;
-        private int player1LegScore;
-        private int player1SetScore;
-    
-        private int player2RoundScore;
-        private int player2LegScore;
-        private int player2SetScore;
-       
+        RoundScore player1RoundScore = new RoundScore();
+        LegScore  player1LegScore= new LegScore();
+        SetScore  player1SetScore = new SetScore();
+
+        RoundScore player2RoundScore = new RoundScore();
+        LegScore player2LegScore = new LegScore();
+        SetScore player2SetScore = new SetScore();
+
         [ObservableProperty]
         private string _searchText = "";
         [ObservableProperty]
@@ -125,25 +125,25 @@ namespace MostAwesomeDartApplicationEver.ViewModels
                     switch (_throw.Hit.Item1)
                     {
                         case HitArea.Single:
-                            player1RoundScore += _throw.Hit.Item2;
+                            player1RoundScore.Score += _throw.Hit.Item2;
                             break;
                         case HitArea.Double:
-                            player1RoundScore += _throw.Hit.Item2 * 2;
+                            player1RoundScore.Score += _throw.Hit.Item2 * 2;
                             break;
                         case HitArea.Triple:
-                            player1RoundScore += _throw.Hit.Item2 * 3;
+                            player1RoundScore.Score += _throw.Hit.Item2 * 3;
                             break;
                         case HitArea.Bullseye:
-                            player1RoundScore += 50;
+                            player1RoundScore.Score += 50;
                             break;
                         case HitArea.None:
-                            player1RoundScore += 0;
+                            player1RoundScore.Score += 0;
                             break;
 
                     }
                 }
-                player1LegScore += player1RoundScore;
-                player1RoundScore = 0;
+                player1LegScore.Score += player1RoundScore.Score;
+                player1RoundScore.Score = 0;
 
             }
             if (player == 2)
@@ -153,25 +153,24 @@ namespace MostAwesomeDartApplicationEver.ViewModels
                     switch (_throw.Hit.Item1)
                     {
                         case HitArea.Single:
-                            player2RoundScore += _throw.Hit.Item2;
+                            player2RoundScore.Score += _throw.Hit.Item2;
                             break;
                         case HitArea.Double:
-                            player2RoundScore += _throw.Hit.Item2 * 2;
+                            player2RoundScore.Score += _throw.Hit.Item2 * 2;
                             break;
                         case HitArea.Triple:
-                            player2RoundScore += _throw.Hit.Item2 * 3;
+                            player2RoundScore.Score += _throw.Hit.Item2 * 3;
                             break;
                         case HitArea.Bullseye:
-                            player2RoundScore += 50;
+                            player2RoundScore.Score += 50;
                             break;
                         case HitArea.None:
-                            player2RoundScore += 0;
+                            player2RoundScore.Score += 0;
                             break;
-
                     }
                 }
-                player2LegScore += player2RoundScore;
-                player2RoundScore = 0;
+                player2LegScore.Score += player2RoundScore.Score;
+                player2RoundScore.Score = 0;
             }
         }
     }
