@@ -31,10 +31,19 @@ namespace MostAwesomeDartApplicationEver.ViewModels
         [ObservableProperty]
         private DateTime? _matchDate = null;
 
-        [RelayCommand]
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(NavigateToResultsCommand))]
+        private Models.Match? _selectedMatch;
+
+        [RelayCommand(CanExecute = nameof(CanNavigateToResults))]
         private void NavigateToResults(Window win)
         {
             win.Content = Results.NewForSearchedMatch();
+        }
+
+        private bool CanNavigateToResults(Window _)
+        {
+            return _selectedMatch != null;
         }
 
         [RelayCommand]
