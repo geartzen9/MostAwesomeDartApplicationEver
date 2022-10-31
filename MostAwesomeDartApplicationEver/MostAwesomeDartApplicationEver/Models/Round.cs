@@ -4,6 +4,7 @@ namespace MostAwesomeDartApplicationEver.Models
 {
     public class Round : MatchComponent 
     {
+        public string Name { get; set; }
         public int? Id { get; set; }
         public Leg Leg { get; set; }
         public int Score { get; set; }

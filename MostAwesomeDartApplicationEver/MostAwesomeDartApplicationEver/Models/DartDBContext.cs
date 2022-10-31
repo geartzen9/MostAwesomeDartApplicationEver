@@ -13,8 +13,11 @@ namespace MostAwesomeDartApplicationEver.Models
     internal class DartDbContext : DbContext
     {
         public DbSet<Darter> Darters { get; set; }
-
         public DbSet<Match> Matches { get; set; }
+        public DbSet<Set> Sets { get; set; }
+        public DbSet<Leg> Legs { get; set; }
+        public DbSet<Round> Rounds { get; set; }
+        public DbSet<Throw> Throws { get; set; }
 
         protected override void OnConfiguring(
             DbContextOptionsBuilder optionsBuilder)

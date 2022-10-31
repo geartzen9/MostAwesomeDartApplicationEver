@@ -1,5 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Accessibility;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Win32;
 using MostAwesomeDartApplicationEver.Models;
 using MostAwesomeDartApplicationEver.Views;
@@ -32,6 +34,7 @@ namespace MostAwesomeDartApplicationEver.ViewModels
         private Round[] _currentRounds = new Round[2];
         private Leg[] _currentLegs = new Leg[2];
         private Set[] _currentSets = new Set[2];
+        private Models.Match _currentMatch = new Models.Match();
 
         [ObservableProperty]
         private string _searchText = "";
@@ -51,9 +54,26 @@ namespace MostAwesomeDartApplicationEver.ViewModels
         public ObservableCollection<Throw> Player1Throws { get; set; } = new();
         public ObservableCollection<Throw> Player2Throws { get; set; } = new();
 
+        private ObservableCollection<Throw> DbThrows;
+        private ObservableCollection<Round> DbRounds;
+        private ObservableCollection<Leg> DbLegs;
+        private ObservableCollection<Set> DbSets;
+        private ObservableCollection<Models.Match> DbMatches;
+
         public MatchViewModel() : base()
         {
             PrepareMatch();
+            Context.Throws.Load();
+            Context.Rounds.Load();
+            Context.Legs.Load();
+            Context.Sets.Load();
+            Context.Matches.Load();
+
+            DbThrows = Context.Throws.Local.ToObservableCollection();
+            DbRounds = Context.Rounds.Local.ToObservableCollection();
+            DbLegs = Context.Legs.Local.ToObservableCollection();
+            DbSets = Context.Sets.Local.ToObservableCollection();
+            DbMatches = Context.Matches.Local.ToObservableCollection();
         }
 
         private void PrepareMatch()
@@ -80,6 +100,7 @@ namespace MostAwesomeDartApplicationEver.ViewModels
                 {
                     Id = i,
                     Match = match,
+                    Name = "Set 1",
                     Darter = match.Darters.ToArray()[i]
                 };
 
@@ -92,6 +113,7 @@ namespace MostAwesomeDartApplicationEver.ViewModels
                 Leg leg = new Leg()
                 {
                     Id = i,
+                    Name = "Leg 1",
                     Set = _sets[i]
                 };
                 _legs.Add(leg);
@@ -103,6 +125,7 @@ namespace MostAwesomeDartApplicationEver.ViewModels
                 Round round = new Round()
                 {
                     Id = i,
+                    Name = "Round 1",
                     Leg = _legs[i]
                 };
 
@@ -113,37 +136,121 @@ namespace MostAwesomeDartApplicationEver.ViewModels
 
         private void AdvanceMatch()
         {
-            for (int i = 1; i < 3; i++)
+            bool newLegs = false;
+            bool newSets = false;
+
+            //draw
+            if (_currentLegs[0].Score == 501 && Player1Throws.Last().Hit.HitArea == HitArea.Double &&
+            _currentLegs[1].Score == 501 && Player2Throws.Last().Hit.HitArea == HitArea.Double)
             {
-                CalculateRoundScore(i);
+                var emptyDarter = new Darter();
+                _currentLegs[0].Winner = emptyDarter;
+                _currentLegs[1].Winner = emptyDarter;
+            }
+            //Player 1 wins leg
+            else if (_currentLegs[0].Score == 501 && _currentLegs[1].Score != 501)
+            {
+                _currentLegs[0].Winner = _currentRounds[0].Darter;
+                _currentLegs[1].Winner = _currentRounds[0].Darter;
+                _currentSets[0].Score += 1;
+
+                newLegs = true;
+            }
+            //Player 2 wins leg
+            else if (_currentLegs[1].Score == 501 && _currentLegs[0].Score != 501)
+            {
+                _currentLegs[0].Winner = _currentRounds[1].Darter;
+                _currentLegs[1].Winner = _currentRounds[1].Darter;
+                _currentSets[1].Score += 1;
+                newLegs = true;
             }
 
-            if (_currentLegs[0].Score == 501 && Player1Throws.Last().Hit.Item1 == HitArea.Double ||
-                _currentLegs[1].Score == 501 && Player2Throws.Last().Hit.Item1 == HitArea.Double)
+            //Legs draw, therefore make more legs
+            if (_currentSets[0].Score == 3 && _currentSets[1].Score == 3)
             {
-
+                newLegs = true;
             }
-            else if (_currentLegs[0].Score == 501 && Player1Throws.Last().Hit.Item1 == HitArea.Double &&
-                _currentLegs[1].Score == 501 && Player2Throws.Last().Hit.Item1 == HitArea.Double)
+            //Player 1 wins set
+            else if (_currentSets[0].Score == 3)
             {
-
+                _currentSets[0].Winner = _currentRounds[0].Darter;
+                _currentSets[1].Winner = _currentRounds[0].Darter;
+                newSets = true;
             }
-            else
+            //Player 2 wins set
+            else if (_currentSets[1].Score == 3)
             {
+                _currentSets[0].Winner = _currentRounds[1].Darter;
+                _currentSets[1].Winner = _currentRounds[1].Darter;
+                newSets = true;
+            }
+
+            //All the sets are played, player with the most sets won is the winner of the match
+            if (NumberOfSets < _sets.ToList().Count)
+            {
+                if (_sets.Where((Set s) => s.Winner == _currentSets[0].Darter).Count() > _sets.Where((Set s) => s.Winner == _currentSets[1].Darter).Count())
+                {
+                    _currentMatch.Winner = _currentRounds[0].Darter;
+                }
+                else
+                {
+                    _currentMatch.Winner = _currentRounds[1].Darter;
+                }
+            }
+
+            if (newSets) MakeMatchComponents(typeof(Set), false);
+            if (newLegs) MakeMatchComponents(typeof(Leg), newSets);
+            MakeMatchComponents(typeof(Round), newLegs);
+        }
+        private void MakeMatchComponents(Type t, bool reset)
+        {
+            if (t == typeof(Round))
+            {
+                int roundCount = _rounds.Count / 2;
                 for (int i = 0; i < 2; i++)
                 {
                     var nextRound = new Round()
                     {
                         Id = _currentRounds[i].Id + 2,
-                        Leg = _currentLegs[i]
+                        Leg = _currentLegs[i],
+                        Name = reset ? "Round 1" : "Round " + (roundCount + 1)
                     };
                     _rounds.Add(nextRound);
                     _currentRounds[i] = nextRound;
                 }
             }
-
+            else if (t == typeof(Leg))
+            {
+                int legCount = _legs.Count / 2;
+                for (int i = 0; i < 2; i++)
+                {
+                    var nextLeg = new Leg()
+                    {
+                        Id = _currentLegs[i].Id + 2,
+                        Set = _currentSets[i],
+                        Name = reset ? "Leg 1" : "Leg " + (legCount + 1)
+                    };
+                    _legs.Add(nextLeg);
+                    _currentLegs[i] = nextLeg;
+                }
+            }
+            else if (t == typeof(Set))
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    int setCount = _sets.Count / 2;
+                    var nextSet = new Set()
+                    {
+                        Id = _currentSets[i].Id + 2,
+                        Match = _currentMatch,
+                        Name = "Set " + (setCount + 1)
+                    };
+                    _sets.Add(nextSet);
+                    _currentSets[i] = nextSet;
+                }
+            }
         }
-      
+
         [RelayCommand]
         private void NavigateToResults(Window win)
         {
@@ -167,7 +274,11 @@ namespace MostAwesomeDartApplicationEver.ViewModels
             if (_searchText != "")
             {
                 var currentThrow = new Throw();
-                currentThrow.Hit = (_scoreType, Int32.Parse(_searchText));
+                currentThrow.Hit = new Hit()
+                {
+                    HitArea = _scoreType,
+                    Score = Int32.Parse(_searchText)
+                };
 
                 if (dartNumber == 3 && !p1)
                 {
@@ -184,83 +295,61 @@ namespace MostAwesomeDartApplicationEver.ViewModels
                 {
                     PlayingText = "Currently Playing: " + Player1Text;
                     currentThrow.Round = _currentRounds[0];
-                    Player1Throws.Add(currentThrow);   
+                    currentThrow.Score = CalculateThrowScore(currentThrow);
+
+                    if (_currentLegs[0].Score + currentThrow.Score > 501 || (_currentLegs[0].Score + currentThrow.Score == 501 && currentThrow.Hit.HitArea != HitArea.Double))
+                    {
+                        dartNumber--;
+                    }
+                    else
+                    {
+                        Player1Throws.Add(currentThrow);
+                        _currentRounds[0].Score += currentThrow.Score;
+                        _currentLegs[0].Score += currentThrow.Score;
+                    }
+
+                    if (_currentLegs[0].Score == 501 && currentThrow.Hit.HitArea == HitArea.Double)
+                    {
+                        dartNumber = 2;
+                    }
                 }
                 //player 2 turn
                 else
                 {
                     PlayingText = "Currently Playing: " + Player2Text;
                     currentThrow.Round = _currentRounds[1];
-                    Player2Throws.Add(currentThrow);   
+                    currentThrow.Score = CalculateThrowScore(currentThrow);
+
+                    if (_currentLegs[1].Score + currentThrow.Score > 501 || (_currentLegs[1].Score + currentThrow.Score == 501 && currentThrow.Hit.HitArea != HitArea.Double))
+                    {
+                        dartNumber--;
+                    }
+                    else
+                    {
+                        Player2Throws.Add(currentThrow);
+                        _currentRounds[1].Score += currentThrow.Score;
+                        _currentLegs[1].Score += currentThrow.Score;
+                    }
+
+                    if (_currentLegs[1].Score == 501 && currentThrow.Hit.HitArea == HitArea.Double)
+                    {
+                        dartNumber = 2;
+                    }
                 }
 
                 SearchText = string.Empty;
                 ScoreTypeString = "";
-
                 dartNumber++;
-            } 
+            }
         }
-        private void CalculateRoundScore(int player)
+
+        private int CalculateThrowScore(Throw t)
         {
-            if (player == 1)
-            {
-                var p1Round = _currentRounds[0];
-                var p1Leg = _currentLegs[0];
-
-                foreach (Throw _throw in Player1Throws.Where((Throw t) => t.Round == p1Round))
-                {
-                    switch (_throw.Hit.Item1)
-                    {
-                        case HitArea.Single:
-                            p1Round.Score += _throw.Hit.Item2;
-                            break;
-                        case HitArea.Double:
-                            p1Round.Score += _throw.Hit.Item2 * 2;
-                            break;
-                        case HitArea.Triple:
-                            p1Round.Score += _throw.Hit.Item2 * 3;
-                            break;
-                        case HitArea.Bullseye:
-                            p1Round.Score += 50;
-                            break;
-                        case HitArea.None:
-                            p1Round.Score += 0;
-                            break;
-
-                    }
-                }
-                p1Leg.Score += p1Round.Score;
-
-            }
-            if (player == 2)
-            {
-                var p2Round = _currentRounds[1];
-                var p2Leg = _currentLegs[1];
-
-                foreach (Throw _throw in Player2Throws.Where((Throw t) => t.Round == p2Round))
-                {
-                    switch (_throw.Hit.Item1)
-                    {
-                        case HitArea.Single:
-                            p2Round.Score += _throw.Hit.Item2;
-                            break;
-                        case HitArea.Double:
-                            p2Round.Score += _throw.Hit.Item2 * 2;
-                            break;
-                        case HitArea.Triple:
-                            p2Round.Score += _throw.Hit.Item2 * 3;
-                            break;
-                        case HitArea.Bullseye:
-                            p2Round.Score += 50;
-                            break;
-                        case HitArea.None:
-                            p2Round.Score += 0;
-                            break;
-
-                    }
-                }
-                p2Leg.Score += p2Round.Score;
-            }
+            if (t.Hit.HitArea == HitArea.Single) return t.Hit.Score;
+            if (t.Hit.HitArea == HitArea.Double) return t.Hit.Score * 2;
+            if (t.Hit.HitArea == HitArea.Triple) return t.Hit.Score * 3;
+            if (t.Hit.HitArea == HitArea.Bullseye) return 50;
+            else return 0;
         }
     }
 }
