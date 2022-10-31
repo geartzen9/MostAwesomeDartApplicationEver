@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
+using MostAwesomeDartApplicationEver.Models;
 using MostAwesomeDartApplicationEver.Views;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,13 @@ namespace MostAwesomeDartApplicationEver.ViewModels
     [INotifyPropertyChanged]
     internal partial class StartViewModel
     {
+        private readonly DartDbContext _dbContext;
+
+        internal StartViewModel()
+        {
+            _dbContext = DartDbContext.Context;
+        }
+
         [RelayCommand]
         private void NavigateToMatchSearcher(Window win)
         {
@@ -29,28 +37,6 @@ namespace MostAwesomeDartApplicationEver.ViewModels
         }
 
         [RelayCommand]
-        private void Export()
-        {
-            string myDocuments = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-
-            SaveFileDialog saveFileDialog = new()
-            {
-                DefaultExt = "json",
-                Filter = "Dart wedstrijden (*.json)|*.json",
-                FileName = System.IO.Path.Combine(myDocuments, "dartsdata.json"),
-                InitialDirectory = myDocuments,
-                OverwritePrompt = true,
-                RestoreDirectory = true
-            };
-
-            if (saveFileDialog.ShowDialog() != true)
-            {
-                return;
-            }
-
-            // TODO: Export data here
-
-            File.WriteAllText(saveFileDialog.FileName, @"{""Dummy"":true}");
-        }
+        private void Export() => JsonExporter.Instance.SerializeAndSave(_dbContext.Matches);
     }
 }

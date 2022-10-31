@@ -25,7 +25,5 @@ namespace MostAwesomeDartApplicationEver.Views
         public static Results NewForFinishedMatch() => new("Terug naar het beginscherm", "Start");
 
         public static Results NewForSearchedMatch() => new("Terug naar het vorige scherm", "MatchSearcher");
-
-        private void Export_OnClick(object sender, RoutedEventArgs e) => JsonExporter.Instance.SerializeAndSave(ViewModel.BackedMatch);
     }
 }

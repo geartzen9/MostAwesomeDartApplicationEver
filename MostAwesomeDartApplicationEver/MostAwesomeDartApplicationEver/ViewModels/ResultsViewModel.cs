@@ -31,6 +31,9 @@ namespace MostAwesomeDartApplicationEver.ViewModels
             if (BackButtonTarget == "MatchSearcher") win.Content = new MatchSearcher();
         }
 
+        [RelayCommand]
+        private void Export() => JsonExporter.Instance.SerializeAndSave(BackedMatch);
+
         /// <summary>
         /// TODO: Wire other properties to update this.
         /// </summary>
