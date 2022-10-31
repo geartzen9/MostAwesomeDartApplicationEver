@@ -23,11 +23,9 @@ namespace MostAwesomeDartApplicationEver
             };
         }
 
-        public string Export(Match match) => JsonSerializer.Serialize((Match.Serializable)match, _serializerOptions);
+        public string Export<T>(T exportable) => JsonSerializer.Serialize<T>(exportable, _serializerOptions);
 
-        public string Export(IEnumerable<Match> matches) => JsonSerializer.Serialize(matches.Cast<Match.Serializable>, _serializerOptions);
-
-        public string Export<T>(T exportable) => JsonSerializer.Serialize(exportable, _serializerOptions);
+        public string Export<T>(IEnumerable<T> exportable) => JsonSerializer.Serialize<T[]>(exportable.ToArray(), _serializerOptions);
 
         public void SerializeAndSave<T>(T matches) where T : notnull
         {
@@ -48,11 +46,9 @@ namespace MostAwesomeDartApplicationEver
                 return;
             }
 
-            // Hack to force dynamic dispatch for overloads of Export.
-            // See https://stackoverflow.com/a/25685515.
-            dynamic @dynamic = matches;
-
-            System.IO.File.WriteAllText(saveFileDialog.FileName, Export(@dynamic));
+            System.IO.File.WriteAllText(saveFileDialog.FileName, Export(matches));
         }
+
+        public void SerializeAndSave<T>(IEnumerable<T> matches) => SerializeAndSave(matches.ToArray());
     }
 }
