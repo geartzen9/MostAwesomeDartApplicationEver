@@ -21,7 +21,7 @@
             <Label Content="Spelernaam:" Target="{Binding ElementName=PlayerName}"/>
             <TextBox Name="PlayerName" Text="{Binding PlayerNameInput}"/>
             <Label Content="Wedstrijddatum:" Target="{Binding ElementName=MatchDate}"/>
-            <TextBox Name="MatchDate" Text="{Binding MatchDate}"/>
+            <Calendar Name="MatchDate" SelectedDate="{Binding MatchDate}"/>
             <Button Name="Search" Style="{DynamicResource AccentButtonStyle}" Content="Zoeken" Command="{Binding Search}"/>
             <Button Name="Test" Content="Proceed (dummy)" Command="{Binding NavigateToResultsCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
         </ui:SimpleStackPanel>
