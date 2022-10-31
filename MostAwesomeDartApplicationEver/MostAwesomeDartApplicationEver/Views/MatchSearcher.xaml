@@ -7,13 +7,13 @@
       xmlns:local="clr-namespace:MostAwesomeDartApplicationEver.Views"
       xmlns:ui="http://schemas.modernwpf.com/2019"
       mc:Ignorable="d"
-      Title="MatchSearcher" Height="450" Width="800">
+      Title="MatchSearcher" WindowHeight="700" WindowWidth="900">
     <Page.DataContext>
         <vm:MatchSearcherViewModel />
     </Page.DataContext>
     <Grid VerticalAlignment="Stretch">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="1.5*" />
             <ColumnDefinition Width="6" />
             <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
@@ -28,6 +28,6 @@
             <Button Name="Test" Content="Proceed (dummy)" Command="{Binding NavigateToResultsCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
         </ui:SimpleStackPanel>
         <GridSplitter Grid.Column="1" Margin="6,0,0,0"/>
-        <DataGrid Name="MatchingMatches" Grid.Column="2" VerticalAlignment="Stretch" AutoGenerateColumns="True" CanUserDeleteRows="False" CanUserAddRows="False" CanUserResizeRows="True" CanUserResizeColumns="True" CanUserReorderColumns="True"  CanUserSortColumns="True" ItemsSource="{Binding SearchResults}"/>
+        <DataGrid Name="MatchingMatches" Grid.Column="2" Margin="5,5,5,5" VerticalAlignment="Stretch" AutoGenerateColumns="True" CanUserDeleteRows="False" CanUserAddRows="False" CanUserResizeRows="True" CanUserResizeColumns="True" CanUserReorderColumns="True"  CanUserSortColumns="True" ItemsSource="{Binding SearchResults}"/>
     </Grid>
 </Page>
