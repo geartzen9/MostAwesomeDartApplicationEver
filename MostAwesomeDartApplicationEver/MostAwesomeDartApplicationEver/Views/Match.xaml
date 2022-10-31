@@ -48,7 +48,8 @@
                 <Binding Source="{StaticResource GroupedP1Throws}" />
             </DataGrid.ItemsSource>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Score" Binding="{Binding Hit}" />
+                <DataGridTextColumn Header="Hit" Binding="{Binding Hit}" />
+                <DataGridTextColumn Header="Score" Binding="{Binding Score}" />
             </DataGrid.Columns>
             <DataGrid.GroupStyle>
                 <GroupStyle>
