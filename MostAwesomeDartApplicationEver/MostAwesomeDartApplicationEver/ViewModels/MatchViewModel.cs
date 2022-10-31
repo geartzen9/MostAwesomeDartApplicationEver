@@ -34,6 +34,7 @@ namespace MostAwesomeDartApplicationEver.ViewModels
         private Round[] _currentRounds = new Round[2];
         private Leg[] _currentLegs = new Leg[2];
         private Set[] _currentSets = new Set[2];
+        [ObservableProperty]
         private Models.Match _currentMatch = new Models.Match();
 
         [ObservableProperty]
@@ -51,6 +52,20 @@ namespace MostAwesomeDartApplicationEver.ViewModels
         [ObservableProperty]
         private DateTime _scheduledDateTime;
 
+        [ObservableProperty]
+        private string _player1RoundScore = "";
+        [ObservableProperty]
+        private string _player1LegScore = "";
+        [ObservableProperty]
+        private string _player1SetScore = "";
+        [ObservableProperty]
+        private string _player2RoundScore = "";
+        [ObservableProperty]
+        private string _player2LegScore = "";
+        [ObservableProperty]
+        private string _player2SetScore = "";
+
+
         public ObservableCollection<Throw> Player1Throws { get; set; } = new();
         public ObservableCollection<Throw> Player2Throws { get; set; } = new();
 
@@ -62,7 +77,6 @@ namespace MostAwesomeDartApplicationEver.ViewModels
 
         public MatchViewModel() : base()
         {
-            PrepareMatch();
             Context.Throws.Load();
             Context.Rounds.Load();
             Context.Legs.Load();
@@ -74,6 +88,7 @@ namespace MostAwesomeDartApplicationEver.ViewModels
             DbLegs = Context.Legs.Local.ToObservableCollection();
             DbSets = Context.Sets.Local.ToObservableCollection();
             DbMatches = Context.Matches.Local.ToObservableCollection();
+            PrepareMatch();
         }
 
         private void PrepareMatch()
@@ -94,11 +109,14 @@ namespace MostAwesomeDartApplicationEver.ViewModels
                 }
             };
 
+            //DbMatches.Add(match);
+            //Context.SaveChanges();
+
             for (int i = 0; i < 2; i++)
             {
                 Set set = new Set()
                 {
-                    Id = i,
+                    
                     Match = match,
                     Name = "Set 1",
                     Darter = match.Darters.ToArray()[i]
@@ -106,31 +124,40 @@ namespace MostAwesomeDartApplicationEver.ViewModels
 
                 _sets.Add(set);
                 _currentSets[i] = set;
+
+                //DbSets.Add(set);
+                //Context.SaveChanges();
             }
 
             for (int i = 0; i < 2; i++)
             {
                 Leg leg = new Leg()
                 {
-                    Id = i,
+                    
                     Name = "Leg 1",
                     Set = _sets[i]
                 };
                 _legs.Add(leg);
                 _currentLegs[i] = leg;
+
+                //DbLegs.Add(leg);
+                //Context.SaveChanges();
             }
 
             for (int i = 0; i < 2; i++)
             {
                 Round round = new Round()
                 {
-                    Id = i,
+                   
                     Name = "Round 1",
                     Leg = _legs[i]
                 };
 
                 _rounds.Add(round);
                 _currentRounds[i] = round;
+
+                //DbRounds.Add(round);
+                //Context.SaveChanges();
             }
         }
 
@@ -154,6 +181,7 @@ namespace MostAwesomeDartApplicationEver.ViewModels
                 _currentLegs[1].Winner = _currentRounds[0].Darter;
                 _currentSets[0].Score += 1;
 
+                Player1SetScore = _currentSets[0].Score.ToString();
                 newLegs = true;
             }
             //Player 2 wins leg
@@ -162,6 +190,8 @@ namespace MostAwesomeDartApplicationEver.ViewModels
                 _currentLegs[0].Winner = _currentRounds[1].Darter;
                 _currentLegs[1].Winner = _currentRounds[1].Darter;
                 _currentSets[1].Score += 1;
+
+                Player2SetScore = _currentSets[1].Score.ToString();
                 newLegs = true;
             }
 
@@ -306,6 +336,10 @@ namespace MostAwesomeDartApplicationEver.ViewModels
                         Player1Throws.Add(currentThrow);
                         _currentRounds[0].Score += currentThrow.Score;
                         _currentLegs[0].Score += currentThrow.Score;
+
+                        Player1RoundScore = _currentRounds[0].Score.ToString();
+                        Player1LegScore = _currentLegs[0].Score.ToString();
+
                     }
 
                     if (_currentLegs[0].Score == 501 && currentThrow.Hit.HitArea == HitArea.Double)
@@ -329,6 +363,9 @@ namespace MostAwesomeDartApplicationEver.ViewModels
                         Player2Throws.Add(currentThrow);
                         _currentRounds[1].Score += currentThrow.Score;
                         _currentLegs[1].Score += currentThrow.Score;
+
+                        Player2RoundScore = _currentRounds[1].Score.ToString();
+                        Player2LegScore = _currentLegs[1].Score.ToString();
                     }
 
                     if (_currentLegs[1].Score == 501 && currentThrow.Hit.HitArea == HitArea.Double)
