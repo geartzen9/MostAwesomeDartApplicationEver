@@ -15,15 +15,8 @@ using System.Windows.Controls;
 namespace MostAwesomeDartApplicationEver.ViewModels
 {
     [INotifyPropertyChanged]
-    internal partial class StartViewModel
+    internal partial class StartViewModel : ViewModel
     {
-        private readonly DartDbContext _dbContext;
-
-        internal StartViewModel()
-        {
-            _dbContext = DartDbContext.Context;
-        }
-
         [RelayCommand]
         private void NavigateToMatchSearcher(Window win)
         {
@@ -37,6 +30,6 @@ namespace MostAwesomeDartApplicationEver.ViewModels
         }
 
         [RelayCommand]
-        private void Export() => JsonExporter.Instance.SerializeAndSave(_dbContext.Matches);
+        private void Export() => JsonExporter.Instance.SerializeAndSave(Context.Matches);
     }
 }
