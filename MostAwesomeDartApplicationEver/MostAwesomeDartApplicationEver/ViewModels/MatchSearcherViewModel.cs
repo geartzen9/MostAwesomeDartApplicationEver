@@ -20,41 +20,13 @@ namespace MostAwesomeDartApplicationEver.ViewModels
     [INotifyPropertyChanged]
     internal partial class MatchSearcherViewModel
     {
+        [ObservableProperty]
         private string _playerNameInput = "";
 
-        public string PlayerNameInput
-        { 
-            get => _playerNameInput;
-            set
-            {
-                _playerNameInput = value;
-                NotifyPropertyChanged();
-            }
-        }
+        public ObservableCollection<Views.Match> SearchResults { get; set; } = new();
 
-        private ObservableCollection<Views.Match> _searchResults = new();
-
-        public ObservableCollection<Views.Match> SearchResults 
-        {
-            get => _searchResults;
-            set
-            {
-                _searchResults = value;
-                NotifyPropertyChanged();
-            }
-        }
-
+        [ObservableProperty]
         private DateTime? _matchDate = null;
-
-        public DateTime? MatchDate
-        {
-            get => _matchDate;
-            set
-            {
-                _matchDate = value;
-                NotifyPropertyChanged();
-            }
-        }
 
         private readonly DartDbContext _dbContext;
 
@@ -77,24 +49,19 @@ namespace MostAwesomeDartApplicationEver.ViewModels
                 {
                     bool isMatch = true;
 
-                    if (string.IsNullOrWhiteSpace(_playerNameInput))
+                    if (string.IsNullOrWhiteSpace(PlayerNameInput))
                     {
-                        isMatch = isMatch && match._darter.Contains(_playerNameInput);
+                        isMatch = isMatch && match._darter.Contains(PlayerNameInput);
                     }
 
-                    if (_matchDate.HasValue)
+                    if (MatchDate.HasValue)
                     {
-                        isMatch = isMatch && (match._scheduledDateTime.Date == _matchDate.Value.Date);
+                        isMatch = isMatch && (match._scheduledDateTime.Date == MatchDate.Value.Date);
                     }
 
                     return isMatch;
                 }
             );
-        }
-
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
