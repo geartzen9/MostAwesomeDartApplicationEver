@@ -5,7 +5,7 @@ using System.Windows.Documents;
 
 namespace MostAwesomeDartApplicationEver.Models
 {
-    public class Match : MatchComponent   
+    public class Match : MatchComponent
     {
         public int? Id { get; set; }
 

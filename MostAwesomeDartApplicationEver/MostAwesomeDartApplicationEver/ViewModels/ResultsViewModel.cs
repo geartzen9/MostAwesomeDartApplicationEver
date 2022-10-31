@@ -30,5 +30,13 @@ namespace MostAwesomeDartApplicationEver.ViewModels
             if (BackButtonTarget == "Start") win.Content = new Start();
             if (BackButtonTarget == "MatchSearcher") win.Content = new MatchSearcher();
         }
+
+        [RelayCommand]
+        private void Export() => JsonExporter.Instance.SerializeAndSave(BackedMatch);
+
+        /// <summary>
+        /// TODO: Wire other properties to update this.
+        /// </summary>
+        public Models.Match BackedMatch => new();
     }
 }

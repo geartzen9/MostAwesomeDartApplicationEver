@@ -7,7 +7,7 @@ namespace MostAwesomeDartApplicationEver.Views
 {
     public partial class Results : Page
     {
-        private ResultsViewModel ViewModel => (ResultsViewModel)this.DataContext;        
+        private ResultsViewModel ViewModel => (ResultsViewModel)this.DataContext;
         /// <summary>
         /// 
         /// </summary>
