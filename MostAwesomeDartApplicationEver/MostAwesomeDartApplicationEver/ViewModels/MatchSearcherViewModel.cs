@@ -18,22 +18,18 @@ using System.Windows.Controls;
 namespace MostAwesomeDartApplicationEver.ViewModels
 {
     [INotifyPropertyChanged]
-    internal partial class MatchSearcherViewModel
+    internal partial class MatchSearcherViewModel : ViewModel
     {
         [ObservableProperty]
-        private string _playerNameInput = "";
+        private string _playerFirstNameInput = "";
 
-        public ObservableCollection<Views.Match> SearchResults { get; set; } = new();
+        [ObservableProperty]
+        private string _playerLastNameInput = "";
+
+        public ObservableCollection<Models.Match> SearchResults { get; set; } = new();
 
         [ObservableProperty]
         private DateTime? _matchDate = null;
-
-        private readonly DartDbContext _dbContext;
-
-        internal MatchSearcherViewModel()
-        {
-            _dbContext = DartDbContext.Context;
-        }
 
         [RelayCommand]
         private void NavigateToResults(Window win)
@@ -44,24 +40,24 @@ namespace MostAwesomeDartApplicationEver.ViewModels
         [RelayCommand]
         private void Search()
         {
-            SearchResults = _dbContext.Matches.AsQueryable().Where(
-                match =>
-                {
-                    bool isMatch = true;
+            IQueryable<Models.Match> queryable = Context.Matches.AsQueryable();
 
-                    if (string.IsNullOrWhiteSpace(PlayerNameInput))
-                    {
-                        isMatch = isMatch && match._darter.Contains(PlayerNameInput);
-                    }
+            if (string.IsNullOrWhiteSpace(PlayerFirstNameInput))
+            {
+                queryable = queryable.Where(m => m.Darters.Any(d => d.FirstName == PlayerFirstNameInput));
+            }
 
-                    if (MatchDate.HasValue)
-                    {
-                        isMatch = isMatch && (match._scheduledDateTime.Date == MatchDate.Value.Date);
-                    }
+            if (string.IsNullOrWhiteSpace(PlayerLastNameInput))
+            {
+                queryable = queryable.Where(m => m.Darters.Any(d => d.FirstName == PlayerLastNameInput));
+            }
 
-                    return isMatch;
-                }
-            );
+            if (MatchDate.HasValue)
+            {
+                queryable = queryable.Where(m => m.ScheduledDateTime.Date == MatchDate.Value.Date);
+            }
+
+            SearchResults = new ObservableCollection<Models.Match>(queryable);
         }
     }
 }
