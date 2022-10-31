@@ -1,4 +1,7 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Windows.Documents;
 
 namespace MostAwesomeDartApplicationEver.Models
 {
@@ -6,12 +9,8 @@ namespace MostAwesomeDartApplicationEver.Models
     {
         public int? Id { get; set; }
 
-        private DateTime _scheduledDateTime;
+        public DateTime ScheduledDateTime { get; set; }
 
-        private Set[] _sets;
-
-        private Darter[] _darter;
-        private MatchScore[] _matchScore;
-
+        public IEnumerable<Darter> Darters { get; set; }
     }
 }

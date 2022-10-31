@@ -10,14 +10,12 @@ using MostAwesomeDartApplicationEver.Models;
 
 namespace MostAwesomeDartApplicationEver.ViewModels
 {
-    internal class ViewModel<T>
+    internal class ViewModel
     {
-        public ObservableCollection<T> Data { get; protected set; }
         protected readonly DartDbContext Context;
 
         public ViewModel()
         {
-            Data = new ObservableCollection<T>();
             Context = DartDbContext.Context;
         }
     }
