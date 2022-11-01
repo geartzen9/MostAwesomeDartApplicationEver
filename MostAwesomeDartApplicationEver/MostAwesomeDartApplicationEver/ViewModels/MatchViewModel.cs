@@ -98,7 +98,6 @@ namespace MostAwesomeDartApplicationEver.ViewModels
         {
             var match = new Models.Match()
             {
-                ScheduledDateTime = _scheduledDateTime,
                 Darters = new[]
                 {
                     new Darter(),
@@ -106,8 +105,8 @@ namespace MostAwesomeDartApplicationEver.ViewModels
                 }
             };
 
-            //DbMatches.Add(match);
-            //Context.SaveChanges();
+            DbMatches.Add(match);
+            Context.SaveChanges();
 
             for (int i = 0; i < 2; i++)
             {
@@ -122,8 +121,8 @@ namespace MostAwesomeDartApplicationEver.ViewModels
                 _sets.Add(set);
                 _currentSets[i] = set;
 
-                //DbSets.Add(set);
-                //Context.SaveChanges();
+                DbSets.Add(set);
+                Context.SaveChanges();
             }
 
             for (int i = 0; i < 2; i++)
@@ -137,8 +136,8 @@ namespace MostAwesomeDartApplicationEver.ViewModels
                 _legs.Add(leg);
                 _currentLegs[i] = leg;
 
-                //DbLegs.Add(leg);
-                //Context.SaveChanges();
+                DbLegs.Add(leg);
+                Context.SaveChanges();
             }
 
             for (int i = 0; i < 2; i++)
@@ -153,8 +152,8 @@ namespace MostAwesomeDartApplicationEver.ViewModels
                 _rounds.Add(round);
                 _currentRounds[i] = round;
 
-                //DbRounds.Add(round);
-                //Context.SaveChanges();
+                DbRounds.Add(round);
+                Context.SaveChanges();
             }
         }
 
@@ -218,10 +217,12 @@ namespace MostAwesomeDartApplicationEver.ViewModels
                 if (_sets.Where((Set s) => s.Winner.FirstName == _currentSets[0].Darter.FirstName).Count() > _sets.Where((Set s) => s.Winner.FirstName == _currentSets[1].Darter.FirstName).Count())
                 {
                     Winner = _currentRounds[0].Darter.FirstName;
+                    _currentSets[0].Match.Winner = _currentSets[0].Darter;
                 }
                 else
                 {
                     Winner = _currentRounds[1].Darter.FirstName;
+                    _currentSets[0].Match.Winner = _currentSets[1].Darter;
                 }
             }
 
@@ -244,6 +245,9 @@ namespace MostAwesomeDartApplicationEver.ViewModels
                     };
                     _rounds.Add(nextRound);
                     _currentRounds[i] = nextRound;
+
+                    DbRounds.Add(nextRound);
+                    Context.SaveChanges();
                 }
             }
             else if (t == typeof(Leg))
@@ -259,6 +263,9 @@ namespace MostAwesomeDartApplicationEver.ViewModels
                     };
                     _legs.Add(nextLeg);
                     _currentLegs[i] = nextLeg;
+
+                    DbLegs.Add(nextLeg);
+                    Context.SaveChanges();
                 }
             }
             else if (t == typeof(Set))
@@ -275,6 +282,9 @@ namespace MostAwesomeDartApplicationEver.ViewModels
                     };
                     _sets.Add(nextSet);
                     _currentSets[i] = nextSet;
+
+                    DbSets.Add(nextSet);
+                    Context.SaveChanges();
                 }
             }
         }
@@ -287,6 +297,11 @@ namespace MostAwesomeDartApplicationEver.ViewModels
         partial void OnPlayer2TextChanged(string value)
         {
             _currentSets[1].Darter.FirstName = value;
+        }
+
+        partial void OnScheduledDateTimeChanged(DateTime value)
+        {
+            _currentSets[0].Match.ScheduledDateTime = value;
         }
 
         [RelayCommand]
@@ -353,6 +368,8 @@ namespace MostAwesomeDartApplicationEver.ViewModels
                     {
                         dartNumber = 2;
                     }
+
+                    Context.SaveChanges();
                 }
                 //player 2 turn
                 else

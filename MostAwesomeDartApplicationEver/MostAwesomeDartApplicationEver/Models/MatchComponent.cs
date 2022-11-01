@@ -2,7 +2,7 @@
 {
     public abstract class MatchComponent
     {
-        public Darter Winner { get; set; }
+        public Darter? Winner { get; set; }
         public MatchComponentStatus Status { get; set; }
     }
 }
