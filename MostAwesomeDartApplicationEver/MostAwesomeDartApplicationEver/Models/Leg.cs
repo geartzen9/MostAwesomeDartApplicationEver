@@ -4,6 +4,7 @@ namespace MostAwesomeDartApplicationEver.Models
 {
     public class Leg : MatchComponent 
     {
+        public string Name { get; set; }
         public int? Id { get; set; }
         public Darter Darter => Set.Darter;
         public Set Set { get; set; }

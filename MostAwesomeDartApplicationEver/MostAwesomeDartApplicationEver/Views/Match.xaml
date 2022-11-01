@@ -19,9 +19,9 @@
     </Page.Resources>
     <Grid VerticalAlignment="Center" Height="900" Width="1600" >
 
-        <Button Name="Test" Content="Proceed" Command="{Binding NavigateToResultsCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Margin="1360,789,0,0" VerticalAlignment="Top" Height="54" Width="168"/>
+        <Button Name="Test" Content="Proceed" Command="{Binding NavigateToResultsCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Margin="1386,802,0,0" VerticalAlignment="Top" Height="54" Width="168"/>
 
-        <TextBox  Name="InputBox"  HorizontalAlignment="Left" Height="54" Margin="689,789,0,0" TextWrapping="Wrap" Text="{Binding SearchText, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="278" PreviewTextInput="InputBox_PreviewTextInput">
+        <TextBox  Name="InputBox"  HorizontalAlignment="Left" Height="54" Margin="708,789,0,0" TextWrapping="Wrap" Text="{Binding SearchText, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="208" PreviewTextInput="InputBox_PreviewTextInput">
             <behaviors:Interaction.Triggers>
                 <behaviors:EventTrigger EventName="KeyDown">
                     <behaviors:InvokeCommandAction Command="{Binding KeyDownCommand}" PassEventArgsToCommand="True" EventArgsConverter="{StaticResource KeyDownEventArgsConverter}"/>
@@ -33,19 +33,57 @@
                    />
             </TextBox.InputBindings>
         </TextBox>
-        <Button Name="SubmitButton" Content="ENTER" Command="{Binding SubmitCommand}" Margin="972,789,0,0" VerticalAlignment="Top" Height="54" Width="75"/>
-        <DataGrid Name="DataGrid1" CanUserDeleteRows="False" AutoGenerateColumns="False" Margin="45,78,915,144">
+        <Button Name="SubmitButton" Content="ENTER" Command="{Binding SubmitCommand}" Margin="921,789,0,0" VerticalAlignment="Top" Height="54" Width="75"/>
+        <DataGrid Name="DataGrid1" CanUserDeleteRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" AutoGenerateColumns="False" Margin="45,78,915,159" IsReadOnly="True">
             <DataGrid.Resources>
                 <CollectionViewSource x:Key="GroupedP1Throws" Source="{Binding Player1Throws}">
                     <CollectionViewSource.GroupDescriptions>
-                        <PropertyGroupDescription PropertyName="Round.Leg.Set.Id" />
-                        <PropertyGroupDescription PropertyName="Round.Leg.Id" />
-                        <PropertyGroupDescription PropertyName="Round.Id" />
+                        <PropertyGroupDescription PropertyName="Round.Leg.Set.Name" />
+                        <PropertyGroupDescription PropertyName="Round.Leg.Name" />
+                        <PropertyGroupDescription PropertyName="Round.Name" />
                     </CollectionViewSource.GroupDescriptions>
                 </CollectionViewSource>
             </DataGrid.Resources>
             <DataGrid.ItemsSource>
                 <Binding Source="{StaticResource GroupedP1Throws}" />
+            </DataGrid.ItemsSource>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Hit" Binding="{Binding Hit}" />
+                <DataGridTextColumn Header="Score" Binding="{Binding Score}"/>
+            </DataGrid.Columns>
+            <DataGrid.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding Name}" />
+                                            </StackPanel>
+                                            <ItemsPresenter />
+                                        </StackPanel>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+                </GroupStyle>
+            </DataGrid.GroupStyle>
+        </DataGrid>
+        <DataGrid Name="DataGrid2" CanUserDeleteRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" AutoGenerateColumns="False" Margin="914,78,72,159" IsReadOnly="True">
+            <DataGrid.Resources>
+                <CollectionViewSource x:Key="GroupedP2Throws" Source="{Binding Player2Throws}">
+                    <CollectionViewSource.GroupDescriptions>
+                        <PropertyGroupDescription PropertyName="Round.Leg.Set.Name" />
+                        <PropertyGroupDescription PropertyName="Round.Leg.Name" />
+                        <PropertyGroupDescription PropertyName="Round.Name" />
+                    </CollectionViewSource.GroupDescriptions>
+                </CollectionViewSource>
+            </DataGrid.Resources>
+            <DataGrid.ItemsSource>
+                <Binding Source="{StaticResource GroupedP2Throws}" />
             </DataGrid.ItemsSource>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Hit" Binding="{Binding Hit}" />
@@ -72,48 +110,32 @@
                 </GroupStyle>
             </DataGrid.GroupStyle>
         </DataGrid>
-        <DataGrid Name="DataGrid2" CanUserDeleteRows="False" AutoGenerateColumns="False" Margin="914,78,72,144">
-            <DataGrid.Resources>
-                <CollectionViewSource x:Key="GroupedP2Throws" Source="{Binding Player2Throws}">
-                    <CollectionViewSource.GroupDescriptions>
-                        <PropertyGroupDescription PropertyName="Round.Leg.Set.Id" />
-                        <PropertyGroupDescription PropertyName="Round.Leg.Id" />
-                        <PropertyGroupDescription PropertyName="Round.Id" />
-                    </CollectionViewSource.GroupDescriptions>
-                </CollectionViewSource>
-            </DataGrid.Resources>
-            <DataGrid.ItemsSource>
-                <Binding Source="{StaticResource GroupedP2Throws}" />
-            </DataGrid.ItemsSource>
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Score" Binding="{Binding Hit}" />
-            </DataGrid.Columns>
-            <DataGrid.GroupStyle>
-                <GroupStyle>
-                    <GroupStyle.ContainerStyle>
-                        <Style TargetType="{x:Type GroupItem}">
-                            <Setter Property="Template">
-                                <Setter.Value>
-                                    <ControlTemplate>
-                                        <StackPanel>
-                                            <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="{Binding Name}" />
-                                            </StackPanel>
-                                            <ItemsPresenter />
-                                        </StackPanel>
-                                    </ControlTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </GroupStyle.ContainerStyle>
-                </GroupStyle>
-            </DataGrid.GroupStyle>
-        </DataGrid>
-        <Label Content="{Binding Player1Text}" HorizontalAlignment="Left" Margin="45,40,0,0" VerticalAlignment="Top" Height="33" Width="191"/>
-        <Label Content="{Binding Player2Text}" HorizontalAlignment="Left" Margin="914,40,0,0" VerticalAlignment="Top" Height="33" Width="191"/>
+        <Label Content="{Binding Player1Text}" HorizontalAlignment="Left" Margin="270,38,0,0" VerticalAlignment="Top" Height="33" Width="190"/>
+        <Label Content="{Binding Player2Text}" HorizontalAlignment="Left" Margin="1140,38,0,0" VerticalAlignment="Top" Height="33" Width="192"/>
         <Label Content="{Binding PlayingText}" HorizontalAlignment="Left" Margin="689,756,0,0" VerticalAlignment="Top" Height="33" Width="246"/>
-        <Label Name="ScoreTypeLabel" Content="{Binding ScoreTypeString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="824,847,0,0" VerticalAlignment="Top" Height="32" Width="169"/>
+        <Label Name="ScoreTypeLabel" Content="{Binding ScoreTypeString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="833,843,0,0" VerticalAlignment="Top" Height="32" Width="169"/>
         <Label Content="Score type (s/d/t/b/n):" HorizontalAlignment="Left" Margin="689,847,0,0" VerticalAlignment="Top" Height="32" Width="139"/>
 
+        <Label Content="Round Score: " HorizontalAlignment="Left" Margin="287,774,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding Player1RoundScore, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="382,778,0,0" VerticalAlignment="Top"/>
+        <Label Content="Leg Score: " HorizontalAlignment="Left" Margin="287,801,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding Player1LegScore, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="382,802,0,0" VerticalAlignment="Top"/>
+        <Label Content="Set Score: " HorizontalAlignment="Left" Margin="287,832,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding Player1SetScore, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="382,832,0,0" VerticalAlignment="Top"/>
+        <!--<Label Content="Sets won: " HorizontalAlignment="Left" Margin="287,860,0,0" VerticalAlignment="Top"/>-->
+        <!--<Label Content="{Binding }" HorizontalAlignment="Left" Margin="382,860,0,0" VerticalAlignment="Top"/>-->
+
+        <Label Content="Round Score: " HorizontalAlignment="Left" Margin="1136,774,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding Player2RoundScore, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="1236,778,0,0" VerticalAlignment="Top"/>
+        <Label Content="Leg Score: " HorizontalAlignment="Left" Margin="1136,801,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding Player2LegScore, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="1236,802,0,0" VerticalAlignment="Top"/>
+        <Label Content="Set Score: " HorizontalAlignment="Left" Margin="1136,832,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding Player2SetScore, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="1236,832,0,0" VerticalAlignment="Top"/>
+        <!--<Label Content="Sets won: " HorizontalAlignment="Left" Margin="1136,860,0,0" VerticalAlignment="Top"/>-->
+        <!--<Label Content="{Binding}" HorizontalAlignment="Left" Margin="1236,860,0,0" VerticalAlignment="Top"/>-->
+
+
+        <Label Content="Match Winner: " HorizontalAlignment="Left" Margin="689,38,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding Winner, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="788,40,0,0" VerticalAlignment="Top" Height="17" Width="155"/>
     </Grid>
 </Page>
