@@ -11,7 +11,7 @@ using MostAwesomeDartApplicationEver.Models;
 namespace MostAwesomeDartApplicationEver.Migrations
 {
     [DbContext(typeof(DartDbContext))]
-    [Migration("20221031153854_MoreModels")]
+    [Migration("20221101101341_MoreModels")]
     partial class MoreModels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

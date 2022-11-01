@@ -34,8 +34,9 @@ namespace MostAwesomeDartApplicationEver.ViewModels
         private Round[] _currentRounds = new Round[2];
         private Leg[] _currentLegs = new Leg[2];
         private Set[] _currentSets = new Set[2];
+        
         [ObservableProperty]
-        private Models.Match _currentMatch = new Models.Match();
+        private String _winner = "";
 
         [ObservableProperty]
         private string _searchText = "";
@@ -88,8 +89,10 @@ namespace MostAwesomeDartApplicationEver.ViewModels
             DbLegs = Context.Legs.Local.ToObservableCollection();
             DbSets = Context.Sets.Local.ToObservableCollection();
             DbMatches = Context.Matches.Local.ToObservableCollection();
+
             PrepareMatch();
         }
+
 
         private void PrepareMatch()
         {
@@ -98,14 +101,8 @@ namespace MostAwesomeDartApplicationEver.ViewModels
                 ScheduledDateTime = _scheduledDateTime,
                 Darters = new[]
                 {
+                    new Darter(),
                     new Darter()
-                    {
-                        FirstName = _player1Text
-                    },
-                    new Darter()
-                    {
-                        FirstName = _player2Text
-                    }
                 }
             };
 
@@ -216,15 +213,15 @@ namespace MostAwesomeDartApplicationEver.ViewModels
             }
 
             //All the sets are played, player with the most sets won is the winner of the match
-            if (NumberOfSets < _sets.ToList().Count)
+            if (NumberOfSets == _sets.ToList().Count / 2 && _legs.Where((Leg l) => (l.Set == _currentSets[0] || l.Set == _currentSets[1]) && l.Set.Winner is not null).Count() / 2 == 3)
             {
-                if (_sets.Where((Set s) => s.Winner == _currentSets[0].Darter).Count() > _sets.Where((Set s) => s.Winner == _currentSets[1].Darter).Count())
+                if (_sets.Where((Set s) => s.Winner.FirstName == _currentSets[0].Darter.FirstName).Count() > _sets.Where((Set s) => s.Winner.FirstName == _currentSets[1].Darter.FirstName).Count())
                 {
-                    _currentMatch.Winner = _currentRounds[0].Darter;
+                    Winner = _currentRounds[0].Darter.FirstName;
                 }
                 else
                 {
-                    _currentMatch.Winner = _currentRounds[1].Darter;
+                    Winner = _currentRounds[1].Darter.FirstName;
                 }
             }
 
@@ -236,7 +233,7 @@ namespace MostAwesomeDartApplicationEver.ViewModels
         {
             if (t == typeof(Round))
             {
-                int roundCount = _rounds.Count / 2;
+                int roundCount = _rounds.Where((Round r) => r.Leg == _currentLegs[0] || r.Leg == _currentLegs[1]).Count() / 2;
                 for (int i = 0; i < 2; i++)
                 {
                     var nextRound = new Round()
@@ -251,7 +248,7 @@ namespace MostAwesomeDartApplicationEver.ViewModels
             }
             else if (t == typeof(Leg))
             {
-                int legCount = _legs.Count / 2;
+                int legCount = _legs.Where((Leg l) => l.Set == _currentSets[0] || l.Set == _currentSets[1]).Count() / 2;
                 for (int i = 0; i < 2; i++)
                 {
                     var nextLeg = new Leg()
@@ -272,13 +269,24 @@ namespace MostAwesomeDartApplicationEver.ViewModels
                     var nextSet = new Set()
                     {
                         Id = _currentSets[i].Id + 2,
-                        Match = _currentMatch,
-                        Name = "Set " + (setCount + 1)
+                        Match = _sets[0].Match,
+                        Name = "Set " + (setCount + 1),
+                        Darter = _currentRounds[i].Darter
                     };
                     _sets.Add(nextSet);
                     _currentSets[i] = nextSet;
                 }
             }
+        }
+
+        partial void OnPlayer1TextChanged(string value)
+        {
+            _currentSets[0].Darter.FirstName = value;       
+        }
+
+        partial void OnPlayer2TextChanged(string value)
+        {
+            _currentSets[1].Darter.FirstName = value;
         }
 
         [RelayCommand]
@@ -339,7 +347,6 @@ namespace MostAwesomeDartApplicationEver.ViewModels
 
                         Player1RoundScore = _currentRounds[0].Score.ToString();
                         Player1LegScore = _currentLegs[0].Score.ToString();
-
                     }
 
                     if (_currentLegs[0].Score == 501 && currentThrow.Hit.HitArea == HitArea.Double)

@@ -128,7 +128,7 @@
         <Label Content="Round Score: " HorizontalAlignment="Left" Margin="1136,774,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding Player2RoundScore, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="1236,778,0,0" VerticalAlignment="Top"/>
         <Label Content="Leg Score: " HorizontalAlignment="Left" Margin="1136,801,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding Player2RoundScore, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="1236,802,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding Player2LegScore, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="1236,802,0,0" VerticalAlignment="Top"/>
         <Label Content="Set Score: " HorizontalAlignment="Left" Margin="1136,832,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding Player2SetScore, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="1236,832,0,0" VerticalAlignment="Top"/>
         <!--<Label Content="Sets won: " HorizontalAlignment="Left" Margin="1136,860,0,0" VerticalAlignment="Top"/>-->
@@ -136,6 +136,6 @@
 
 
         <Label Content="Match Winner: " HorizontalAlignment="Left" Margin="689,38,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding CurrentMatch.Winner.FirstName}" HorizontalAlignment="Left" Margin="788,40,0,0" VerticalAlignment="Top"/>
+        <Label Content="{Binding Winner, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="788,40,0,0" VerticalAlignment="Top" Height="17" Width="155"/>
     </Grid>
 </Page>
